@@ -1,28 +1,41 @@
 import { MenuOptionsTypes } from "@/types/MenuOptions.type";
 import { RouteEndPointTypes } from "@/types/RouteEndPoint.type";
+import { icons } from "../../public";
+import {
+  routeNameFriend,
+  routeNameGroup,
+  routeNameHome,
+  routeNameNoAvatar,
+  routeNameStory,
+  routeUrlFriend,
+  routeUrlGroup,
+  routeUrlHome,
+  routeUrlNoAvatar,
+  routeUrlStory,
+} from "@/constants";
 
 export const routesUrlEndpoint: RouteEndPointTypes = {
-  home: "/",
-  friends: "/friends",
-  groups: "/groups",
-  stories: "/stories",
-  login: "/login",
+  home: routeUrlHome,
+  friends: routeUrlFriend,
+  groups: routeUrlGroup,
+  stories: routeUrlStory,
+  login: routeUrlNoAvatar,
 } as const;
 
 const routesNameEndpoint: RouteEndPointTypes = {
-  home: "Home",
-  friends: "Friends",
-  groups: "Groups",
-  stories: "Stories",
-  login: "Login",
+  home: routeNameHome,
+  friends: routeNameFriend,
+  groups: routeNameGroup,
+  stories: routeNameStory,
+  login: routeNameNoAvatar,
 } as const;
 
 const routesIconEndpoint: RouteEndPointTypes = {
-  home: "/home.png",
-  friends: "/friends.png",
-  groups: "/groups.png",
-  stories: "/stories.png",
-  login: "/noAvatar.png",
+  home: icons.home,
+  friends: icons.friends,
+  groups: icons.groups,
+  stories: icons.stories,
+  login: icons.login,
 } as const;
 
 export const menuMobileOptions: MenuOptionsTypes[] = [
@@ -37,14 +50,14 @@ export const menuMobileOptions: MenuOptionsTypes[] = [
     icon: routesIconEndpoint.friends,
   },
   {
-    name: routesNameEndpoint.groups,
-    href: routesUrlEndpoint.groups,
-    icon: routesIconEndpoint.groups,
-  },
-  {
     name: routesNameEndpoint.stories,
     href: routesUrlEndpoint.stories,
     icon: routesIconEndpoint.stories,
+  },
+  {
+    name: routesNameEndpoint.groups,
+    href: routesUrlEndpoint.groups,
+    icon: routesIconEndpoint.groups,
   },
   {
     name: routesNameEndpoint.login,
