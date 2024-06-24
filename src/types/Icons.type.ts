@@ -8,4 +8,13 @@ export type IconsTypes = {
   message: string;
   notification: string;
   search: string;
+  emoji: string;
+  addImage: string;
+  addVideo: string;
+  addEvent: string;
+  poll: string;
+  more: string;
+  like: string;
+  comment: string;
+  share: string;
 };

@@ -21,6 +21,24 @@ const iconPeople = "/people.png" as string;
 const iconMessage = "/messages.png" as string;
 const iconNotification = "/notifications.png" as string;
 const iconSearch = "/search.png" as string;
+const iconEmoji = "/emoji.png" as string;
+const iconAddImage = "/addimage.png" as string;
+const iconAddVideo = "/addVideo.png" as string;
+const iconAddEvent = "/addevent.png" as string;
+const iconPoll = "/poll.png" as string;
+const iconMore = "/more.png" as string;
+const iconLike = "/like.png" as string;
+const iconComment = "/comment.png" as string;
+const iconShare = "/share.png" as string;
+
+// post
+const postOptionAddPhoto = "Photo" as string;
+const postOptionAddVideo = "Video" as string;
+const postOptionAddEvent = "Event" as string;
+const postOptionPoll = "Poll" as string;
+const postOptionLike = "Likes" as string;
+const postOptionComment = "Comments" as string;
+const postOptionShare = "Share" as string;
 
 export {
   iconHome,
@@ -32,6 +50,15 @@ export {
   iconMessage,
   iconNotification,
   iconSearch,
+  iconEmoji,
+  iconAddImage,
+  iconAddVideo,
+  iconAddEvent,
+  iconPoll,
+  iconMore,
+  iconLike,
+  iconComment,
+  iconShare,
 };
 export {
   routeUrlHome,
@@ -44,4 +71,13 @@ export {
   routeNameGroup,
   routeNameStory,
   routeNameNoAvatar,
+};
+export {
+  postOptionAddEvent,
+  postOptionAddPhoto,
+  postOptionAddVideo,
+  postOptionPoll,
+  postOptionLike,
+  postOptionComment,
+  postOptionShare,
 };
