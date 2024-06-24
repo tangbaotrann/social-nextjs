@@ -2,20 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, SignedOut } from "@clerk/nextjs";
 
 import Loading from "./Loading";
 import MenuMobile from "./MenuMobile";
 import { MenuOptionsTypes } from "@/types/MenuOptions.type";
 import { menuMobileOptions, routesUrlEndpoint } from "@/routes";
-import { icons } from "../../public";
 import SearchInput from "./SearchInput";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
 
 function NavBar() {
   return (
@@ -54,46 +49,11 @@ function NavBar() {
           <Loading />
         </ClerkLoading>
         <ClerkLoaded>
-          <SignedIn>
-            <div className="cursor-pointer">
-              <Image
-                src={icons.people}
-                alt={icons.people}
-                width={20}
-                height={20}
-              />
-            </div>
-            <div className="cursor-pointer">
-              <Image
-                src={icons.message}
-                alt={icons.message}
-                width={20}
-                height={20}
-              />
-            </div>
-            <div className="cursor-pointer">
-              <Image
-                src={icons.notification}
-                alt={icons.notification}
-                width={20}
-                height={20}
-              />
-            </div>
-            <UserButton />
-          </SignedIn>
-          <SignedOut>
-            <div className="flex items-center gap-2 hover:opacity-80 hover:text-blue-600 hover:duration-500">
-              <Image
-                src={icons.login}
-                alt={icons.login}
-                width={20}
-                height={20}
-              />
-              <Link href="/sign-in">Login/ Register</Link>
-            </div>
-          </SignedOut>
+          <SignIn />
+          <SignOut />
         </ClerkLoaded>
       </div>
+
       <MenuMobile />
     </div>
   );
