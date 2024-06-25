@@ -17,4 +17,12 @@ export type IconsTypes = {
   like: string;
   comment: string;
   share: string;
+  accept: string;
+  reject: string;
+  gift: string;
+  map: string;
+  school: string;
+  work: string;
+  link: string;
+  date: string;
 };

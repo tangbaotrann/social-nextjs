@@ -6,7 +6,7 @@ function SearchInput() {
     <div className="hidden xl:flex items-center relative">
       <input
         type="text"
-        className="bg-slate-100 rounded-xl p-2 outline-none focus:ring-2 focus:duration-500"
+        className="text-sm font-medium bg-slate-100 rounded-xl p-2 outline-none focus:ring-2 focus:duration-500"
         placeholder="Search here..."
       />
       <Image

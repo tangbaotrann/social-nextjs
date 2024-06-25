@@ -30,6 +30,14 @@ const iconMore = "/more.png" as string;
 const iconLike = "/like.png" as string;
 const iconComment = "/comment.png" as string;
 const iconShare = "/share.png" as string;
+const iconAccept = "/accept.png" as string;
+const iconReject = "/reject.png" as string;
+const iconGift = "/gift.png" as string;
+const iconMap = "/map.png" as string;
+const iconSchool = "/school.png" as string;
+const iconWork = "/work.png" as string;
+const iconLink = "/link.png" as string;
+const iconDate = "/date.png" as string;
 
 // post
 const postOptionAddPhoto = "Photo" as string;
@@ -59,6 +67,14 @@ export {
   iconLike,
   iconComment,
   iconShare,
+  iconAccept,
+  iconReject,
+  iconGift,
+  iconMap,
+  iconSchool,
+  iconWork,
+  iconLink,
+  iconDate,
 };
 export {
   routeUrlHome,
