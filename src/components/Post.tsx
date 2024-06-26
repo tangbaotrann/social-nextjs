@@ -8,6 +8,7 @@ import {
   postOptionShare,
 } from "@/constants";
 import CommentInput from "./CommentInput";
+import IconMore from "./IconMore";
 
 const iconOptionsInteraction: PostOptionsTypes[] = [
   {
@@ -36,13 +37,7 @@ function Post() {
           <span className="font-medium">Lie</span>
         </div>
 
-        <Image
-          src={icons.more}
-          alt={icons.more}
-          width={16}
-          height={16}
-          className="cursor-pointer hover:opacity-70"
-        />
+        <IconMore />
       </div>
 
       {/* Content post */}

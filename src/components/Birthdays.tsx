@@ -2,16 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { icons } from "../../public";
+import BoxShadow from "./BoxShadow";
 
 function Birthday() {
   return (
-    <div className="bg-white rounded-lg shadow-md text-sm p-4">
-      {/* Top */}
-      <div className="flex items-center justify-between font-medium">
-        <span className="text-gray-500">Friend requests</span>
-      </div>
-
-      <div className="flex items-center justify-between py-4">
+    <BoxShadow textTitleLeft="Birthdays">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Image
             src="https://images.pexels.com/photos/20643866/pexels-photo-20643866/free-photo-of-thanh-ph-toa-nha-toa-nha-ch-c-tr-i-cac-c-a-s.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
@@ -42,7 +38,7 @@ function Birthday() {
           </span>
         </Link>
       </div>
-    </div>
+    </BoxShadow>
   );
 }
 

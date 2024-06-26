@@ -1,22 +1,11 @@
-import Link from "next/link";
 import Image from "next/image";
 
 import { UserTypes } from "@/types/User.type";
+import BoxShadow from "./BoxShadow";
 
 function UserMediaCard({ userId }: UserTypes) {
   return (
-    <div className="flex flex-col gap-4 bg-white rounded-lg shadow-md text-sm p-4">
-      {/* Top */}
-      <div className="flex items-center justify-between font-medium">
-        <span className="text-gray-500">User media</span>
-        <Link
-          href="/"
-          className="text-blue-500 hover:opacity-70 hover:duration-500"
-        >
-          See all
-        </Link>
-      </div>
-
+    <BoxShadow textTitleLeft="User media" textTitleRight="See all">
       <div className="flex flex-wrap justify-between gap-4">
         <div className="relative w-1/4 h-24">
           <Image
@@ -51,7 +40,7 @@ function UserMediaCard({ userId }: UserTypes) {
           />
         </div>
       </div>
-    </div>
+    </BoxShadow>
   );
 }
 

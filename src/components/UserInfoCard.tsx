@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { icons } from "../../public";
+import BoxShadow from "./BoxShadow";
 import { UserInfoOptionsIconTypes, UserTypes } from "@/types/User.type";
 
 const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
@@ -34,18 +35,7 @@ const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
 
 function UserInfoCard({ userId }: UserTypes) {
   return (
-    <div className="flex flex-col gap-4 bg-white rounded-lg shadow-md text-sm p-4">
-      {/* Top */}
-      <div className="flex items-center justify-between font-medium">
-        <span className="text-gray-500">User information</span>
-        <Link
-          href="/"
-          className="text-blue-500 hover:opacity-70 hover:duration-500"
-        >
-          See all
-        </Link>
-      </div>
-
+    <BoxShadow textTitleLeft="User information" textTitleRight="See all">
       <div className="flex flex-col gap-4 text-gray-500">
         <div className="flex items-center gap-2">
           <span className="text-xl text-black">Fleming</span>
@@ -86,7 +76,7 @@ function UserInfoCard({ userId }: UserTypes) {
           Block user
         </span>
       </div>
-    </div>
+    </BoxShadow>
   );
 }
 

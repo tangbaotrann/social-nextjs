@@ -1,4 +1,6 @@
 import Image from "next/image";
+
+import IconMore from "./IconMore";
 import { icons } from "../../public";
 
 function CommentInput() {
@@ -62,13 +64,7 @@ function CommentInput() {
           </div>
         </div>
 
-        <Image
-          src={icons.more}
-          alt={icons.more}
-          width={16}
-          height={16}
-          className="w-4 h-4 cursor-pointer hover:opacity-70"
-        />
+        <IconMore />
       </div>
     </div>
   );
