@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { icons } from "../../public";
-import { PostOptionsTypes } from "@/types/Post.type";
 import {
   postOptionComment,
   postOptionLike,
@@ -9,8 +8,9 @@ import {
 } from "@/constants";
 import CommentInput from "./CommentInput";
 import IconMore from "./IconMore";
+import { ImageIconTypes } from "@/types/ImageIcon.type";
 
-const iconOptionsInteraction: PostOptionsTypes[] = [
+const iconOptionsInteraction: ImageIconTypes[] = [
   {
     src: icons.like,
     alt: postOptionLike,
@@ -57,7 +57,7 @@ function Post() {
       <div className="flex items-center justify-between text-sm">
         {/* Like + Comment */}
         <div className="flex gap-8 max-sm:gap-2 md:gap-4">
-          {iconOptionsInteraction.map((iconOption: PostOptionsTypes) => (
+          {iconOptionsInteraction.map((iconOption: ImageIconTypes) => (
             <div
               className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl"
               key={iconOption.src}

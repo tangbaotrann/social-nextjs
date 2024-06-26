@@ -38,6 +38,16 @@ const iconSchool = "/school.png" as string;
 const iconWork = "/work.png" as string;
 const iconLink = "/link.png" as string;
 const iconDate = "/date.png" as string;
+const iconPost = "/posts.png" as string;
+const iconActivity = "/activity.png" as string;
+const iconMarket = "/market.png" as string;
+const iconEvent = "/events.png" as string;
+const iconAlbums = "/albums.png" as string;
+const iconVideo = "/videos.png" as string;
+const iconNews = "/news.png" as string;
+const iconCourse = "/courses.png" as string;
+const iconList = "/lists.png" as string;
+const iconSetting = "/settings.png" as string;
 
 // post
 const postOptionAddPhoto = "Photo" as string;
@@ -47,6 +57,18 @@ const postOptionPoll = "Poll" as string;
 const postOptionLike = "Likes" as string;
 const postOptionComment = "Comments" as string;
 const postOptionShare = "Share" as string;
+
+// menu left
+const titlePost = "Post" as string;
+const titleActivity = "Activity" as string;
+const titleMarket = "Marketplace" as string;
+const titleEvent = "Events" as string;
+const titleAlbums = "Albums" as string;
+const titleVideo = "Videos" as string;
+const titleNews = "News" as string;
+const titleCourse = "Courses" as string;
+const titleList = "Lists" as string;
+const titleSetting = "Settings" as string;
 
 export {
   iconHome,
@@ -75,6 +97,16 @@ export {
   iconWork,
   iconLink,
   iconDate,
+  iconPost,
+  iconActivity,
+  iconMarket,
+  iconEvent,
+  iconAlbums,
+  iconVideo,
+  iconNews,
+  iconCourse,
+  iconList,
+  iconSetting,
 };
 export {
   routeUrlHome,
@@ -96,4 +128,16 @@ export {
   postOptionLike,
   postOptionComment,
   postOptionShare,
+};
+export {
+  titlePost,
+  titleActivity,
+  titleMarket,
+  titleEvent,
+  titleAlbums,
+  titleVideo,
+  titleNews,
+  titleCourse,
+  titleList,
+  titleSetting,
 };

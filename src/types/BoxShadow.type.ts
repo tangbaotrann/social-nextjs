@@ -1,8 +1,9 @@
 import React from "react";
 
 export type BoxShadowTypes = {
-  textTitleLeft: string;
+  textTitleLeft?: string;
   textTitleRight?: string;
   iconTitleRight?: React.ReactNode;
+  className?: string;
   children: React.ReactNode;
 };

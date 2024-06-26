@@ -1,4 +1,4 @@
-export type PostOptionsTypes = {
+export type ImageIconTypes = {
   src: string;
   alt: string;
 };

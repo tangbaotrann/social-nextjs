@@ -25,4 +25,14 @@ export type IconsTypes = {
   work: string;
   link: string;
   date: string;
+  post: string;
+  activity: string;
+  market: string;
+  event: string;
+  albums: string;
+  video: string;
+  news: string;
+  course: string;
+  list: string;
+  setting: string;
 };

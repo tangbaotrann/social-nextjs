@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 import { icons } from "../../public";
-import { PostOptionsTypes } from "@/types/Post.type";
 import {
   postOptionAddEvent,
   postOptionAddPhoto,
   postOptionAddVideo,
   postOptionPoll,
 } from "@/constants";
+import { ImageIconTypes } from "@/types/ImageIcon.type";
 
-const iconOptions: PostOptionsTypes[] = [
+const iconOptions: ImageIconTypes[] = [
   {
     src: icons.addImage,
     alt: postOptionAddPhoto,
@@ -58,7 +58,7 @@ function AddPost() {
 
         <div className="flex items-center gap-4 mt-4 text-gray-400">
           <div className="flex items-center flex-wrap gap-4 cursor-pointer font-medium text-xs">
-            {iconOptions.map((iconOption: PostOptionsTypes) => (
+            {iconOptions.map((iconOption: ImageIconTypes) => (
               <div
                 key={iconOption.alt}
                 className="hover:opacity-80 hover:text-blue-600 hover:duration-500"
