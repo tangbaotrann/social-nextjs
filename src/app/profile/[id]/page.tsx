@@ -1,5 +1,6 @@
 import Feed from "@/components/Feed";
 import LeftMenu from "@/components/LeftMenu";
+import ProfileInfo from "@/components/ProfileInfo";
 import RightMenu from "@/components/RightMenu";
 
 function ProfilePage() {
@@ -10,6 +11,7 @@ function ProfilePage() {
       </div>
 
       <div className="w-full lg:w-[70%] xl:w-[50%]">
+        <ProfileInfo />
         <Feed />
       </div>
 
