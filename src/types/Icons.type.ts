@@ -36,3 +36,12 @@ export type IconsTypes = {
   list: string;
   setting: string;
 };
+
+export type IconInteractivePropsTypes = React.ComponentProps<"img"> & {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  commClassName?: string;
+  className?: string;
+};

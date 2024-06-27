@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { AdTypes } from "@/types/Ad.type";
 import BoxShadow from "./BoxShadow";
-import IconMore from "./IconMore";
+import IconMore from "./IconInteractive";
 
 function Ad({ size }: AdTypes) {
   return (

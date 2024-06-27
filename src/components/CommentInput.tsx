@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import IconMore from "./IconMore";
 import { icons } from "../../public";
+import IconInteractive from "./IconInteractive";
 
 function CommentInput() {
   return (
@@ -20,14 +20,13 @@ function CommentInput() {
           <input
             type="text"
             placeholder="Write a comment..."
-            className="flex-1 bg-transparent outline-none p-2 rounded-md text-sm font-medium focus:ring-2 focus:duration-500"
+            className="flex-1 bg-transparent outline-none p-2 rounded-md text-sm font-medium mr-1 focus:ring-2 focus:duration-500"
           />
-          <Image
+          <IconInteractive
             src={icons.emoji}
             alt={icons.emoji}
             width={16}
             height={16}
-            className="cursor-pointer ml-1"
           />
         </div>
       </div>
@@ -49,12 +48,11 @@ function CommentInput() {
           {/* Interactive comment */}
           <div className="flex items-center gap-8 text-xs text-gray-500 mt-2">
             <div className="flex items-center gap-4">
-              <Image
+              <IconInteractive
                 src={icons.like}
                 alt={icons.like}
                 width={16}
                 height={16}
-                className="w-4 h-4 object-cover"
               />
               <span className="text-gray-300">|</span>
               <span className="text-gray-500">123 Likes</span>
@@ -64,7 +62,13 @@ function CommentInput() {
           </div>
         </div>
 
-        <IconMore />
+        {/* <IconMore /> */}
+        <IconInteractive
+          src={icons.more}
+          alt={icons.more}
+          width={16}
+          height={16}
+        />
       </div>
     </div>
   );

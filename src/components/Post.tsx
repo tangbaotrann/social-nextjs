@@ -7,8 +7,8 @@ import {
   postOptionShare,
 } from "@/constants";
 import CommentInput from "./CommentInput";
-import IconMore from "./IconMore";
 import { ImageIconTypes } from "@/types/ImageIcon.type";
+import IconInteractive from "./IconInteractive";
 
 const iconOptionsInteraction: ImageIconTypes[] = [
   {
@@ -37,7 +37,12 @@ function Post() {
           <span className="font-medium">Lie</span>
         </div>
 
-        <IconMore />
+        <IconInteractive
+          src={icons.more}
+          alt={icons.more}
+          width={16}
+          height={16}
+        />
       </div>
 
       {/* Content post */}
@@ -62,12 +67,11 @@ function Post() {
               className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl"
               key={iconOption.src}
             >
-              <Image
+              <IconInteractive
                 src={iconOption.src}
                 alt={iconOption.alt}
                 width={16}
                 height={16}
-                className="cursor-pointer"
               />
               <span className="text-gray-300">|</span>
               <span className="text-gray-500">
@@ -80,12 +84,11 @@ function Post() {
 
         {/* Share */}
         <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
-          <Image
+          <IconInteractive
             src={icons.share}
             alt={icons.share}
             width={16}
             height={16}
-            className="cursor-pointer"
           />
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">
