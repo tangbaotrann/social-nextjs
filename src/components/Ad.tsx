@@ -2,11 +2,22 @@ import Image from "next/image";
 
 import { AdTypes } from "@/types/Ad.type";
 import BoxShadow from "./BoxShadow";
-import IconMore from "./IconInteractive";
+import IconInteractive from "./IconInteractive";
+import { icons } from "../../public";
 
 function Ad({ size }: AdTypes) {
   return (
-    <BoxShadow textTitleLeft="Sponsored Ads" iconTitleRight={<IconMore />}>
+    <BoxShadow
+      textTitleLeft="Sponsored Ads"
+      iconTitleRight={
+        <IconInteractive
+          src={icons.more}
+          alt={icons.more}
+          width={16}
+          height={16}
+        />
+      }
+    >
       <div className={`flex flex-col ${size === "sm" ? "gap-2" : "gap-4"}`}>
         <div className={`relative w-full ${size === "md" ? "h-36" : "h-48"}`}>
           <Image

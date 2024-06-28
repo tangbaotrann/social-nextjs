@@ -65,7 +65,7 @@ function Post() {
           {iconOptionsInteraction.map((iconOption: ImageIconTypes) => (
             <div
               className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl"
-              key={iconOption.src}
+              key={iconOption.alt}
             >
               <IconInteractive
                 src={iconOption.src}

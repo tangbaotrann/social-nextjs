@@ -1,5 +1,6 @@
-import { UserProfileInfoTypes } from "@/types/User.type";
 import Image from "next/image";
+
+import { UserProfileInfoTypes } from "@/types/User.type";
 
 // Fake data
 const userProfileInfo: UserProfileInfoTypes = {

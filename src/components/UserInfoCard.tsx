@@ -45,7 +45,7 @@ function UserInfoCard({ userId }: UserTypes) {
         <p className="">Desc...</p>
 
         {iconUserInfoOptions.map((iconOption: UserInfoOptionsIconTypes) => (
-          <div className="flex items-center gap-2" key={iconOption.alt}>
+          <div className="flex items-center gap-2" key={iconOption.src}>
             <Image
               src={iconOption.src}
               alt={iconOption.alt}
