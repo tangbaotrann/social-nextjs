@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ClerkLoaded, ClerkLoading, SignedOut } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 
 import Loading from "./Loading";
 import MenuMobile from "./MenuMobile";
@@ -48,6 +48,7 @@ function NavBar() {
         <ClerkLoading>
           <Loading />
         </ClerkLoading>
+
         <ClerkLoaded>
           <SignIn />
           <SignOut />

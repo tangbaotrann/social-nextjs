@@ -1,6 +1,10 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedSettingsPage = createRouteMatcher(["/settings(.*)"]);
+const isProtectedSettingsPage = createRouteMatcher([
+  "/settings(.*)",
+  "/",
+  "/profile(.*)",
+]);
 
 export default clerkMiddleware((auth, req) => {
   if (isProtectedSettingsPage(req)) auth().protect();

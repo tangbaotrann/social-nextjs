@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { auth } from "@clerk/nextjs/server";
 
 import { icons } from "../../public";
 import {
@@ -29,6 +30,10 @@ const iconOptions: ImageIconTypes[] = [
 ];
 
 function AddPost() {
+  const { userId } = auth();
+
+  console.log("userId ->", userId);
+
   return (
     <div className="bg-white p-4 flex justify-between gap-4 text-sm shadow-md rounded-lg mt-4 mb-4">
       <Image
@@ -40,10 +45,10 @@ function AddPost() {
       />
 
       <div className="flex-1">
-        <div className="flex gap-4">
+        <form action="" className="flex gap-4">
           <textarea
-            name=""
-            id=""
+            name="desc"
+            id="desc"
             className="flex-1 bg-slate-100 rounded-lg p-2 outline-none focus:ring-2 focus:duration-500"
             placeholder="What's on your mind?"
           ></textarea>
@@ -54,7 +59,11 @@ function AddPost() {
             height={20}
             className="w-5 h-5 cursor-pointer self-end"
           />
-        </div>
+
+          <button className="bg-slate-50 rounded-md p-1 hover:bg-blue-500 hover:text-white text-sm font-medium hover:duration-500">
+            Send
+          </button>
+        </form>
 
         <div className="flex items-center gap-4 mt-4 text-gray-400">
           <div className="flex items-center flex-wrap gap-4 cursor-pointer font-medium text-xs">

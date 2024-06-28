@@ -45,7 +45,7 @@ model Post {
   img       String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   userId    String
   comments  Comment[]
   likes     Like[]
@@ -58,7 +58,7 @@ model Comment {
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   userId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   postId    Int
   likes     Like[]
 }
@@ -68,27 +68,27 @@ model Like {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   userId    String
-  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   postId    Int?
-  Comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Comment   Comment? @relation(fields: [commentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   commentId Int?
 }
 
 model Follower {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
-  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onUpdate: NoAction)
   followerId  String
-  following   User     @relation("UserFollowings", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  following   User     @relation("UserFollowings", fields: [followingId], references: [id], onUpdate: NoAction)
   followingId String
 }
 
 model FollowRequest {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
-  sender     User     @relation("FollowRequestsSent", fields: [senderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  sender     User     @relation("FollowRequestsSent", fields: [senderId], references: [id], onUpdate: NoAction)
   senderId   String
-  receiver   User     @relation("FollowRequestsReceived", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  receiver   User     @relation("FollowRequestsReceived", fields: [receiverId], references: [id], onUpdate: NoAction)
   receiverId String
 
   @@unique([senderId, receiverId])
@@ -97,9 +97,9 @@ model FollowRequest {
 model Block {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  blocker   User     @relation("BlocksSent", fields: [blockerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  blocker   User     @relation("BlocksSent", fields: [blockerId], references: [id], onUpdate: NoAction)
   blockerId String
-  blocked   User     @relation("BlocksReceived", fields: [blockedId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  blocked   User     @relation("BlocksReceived", fields: [blockedId], references: [id], onUpdate: NoAction)
   blockedId String
 
   @@unique([blockerId, blockedId])

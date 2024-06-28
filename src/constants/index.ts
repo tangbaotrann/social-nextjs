@@ -17,6 +17,7 @@ const iconFriend = "/friends.png" as string;
 const iconGroup = "/groups.png" as string;
 const iconStory = "/stories.png" as string;
 const iconNoAvatar = "/noAvatar.png" as string;
+const iconNoCover = "/noCover.png" as string;
 const iconPeople = "/people.png" as string;
 const iconMessage = "/messages.png" as string;
 const iconNotification = "/notifications.png" as string;
@@ -76,6 +77,7 @@ export {
   iconGroup,
   iconStory,
   iconNoAvatar,
+  iconNoCover,
   iconPeople,
   iconMessage,
   iconNotification,
