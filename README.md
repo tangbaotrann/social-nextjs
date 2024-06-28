@@ -5,14 +5,14 @@
 - Step 1:
   - Copy and run in terminal of project:
 
-```bash
+```typescript
     npm install prisma --save-dev
     npm install @prisma/client
 ```
 
 and here:
 
-```bash
+```typescript
     npx prisma init
 ```
 
@@ -20,7 +20,7 @@ and here:
 
   - Copy and paste to project in folder `prisma/schema.prisma`:
 
-    ```python
+    ```typescript
         generator client {
             provider = "prisma-client-js"
         }
@@ -40,15 +40,16 @@ and here:
 
     - In file .env copy and paste:
 
-    ```python
-        DATABASE_URL="sqlserver://localhost:1433;initial catalog=namesampledb;user=<username>;password=<password>;encrypt=true;trustServerCertificate=true;"
+    ```typescript
+    DATABASE_URL =
+      "sqlserver://localhost:1433;initial catalog=namesampledb;user=<username>;password=<password>;encrypt=true;trustServerCertificate=true;";
     ```
 
 - Step 3: migration to db sql server.
 
   - Copy and run in terminal of project:
 
-  ```base
+  ```typescript
       npx prisma migrate dev --name init
   ```
 
@@ -56,6 +57,6 @@ and here:
 
 - In terminal of project copy and run:
 
-```base
+```typescript
     npx prisma studio
 ```
