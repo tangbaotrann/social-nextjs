@@ -1,55 +1,50 @@
 import Image from "next/image";
 
+import UserName from "./UserName";
 import { UserProfileInfoTypes } from "@/types/User.type";
 
-// Fake data
-const userProfileInfo: UserProfileInfoTypes = {
-  totalPost: 123,
-  titlePost: "Posts",
-  totalFollowers: 12.5,
-  titleFollowers: "Followers",
-  totalFollowing: 10.5,
-  titleFollowing: "Following",
+type UserProfileProps = {
+  user: UserProfileInfoTypes;
 };
 
-function ProfileInfo() {
+function ProfileInfo({ user }: UserProfileProps) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center justify-center">
         <div className="w-full h-64 relative">
           <Image
-            src="https://images.pexels.com/photos/25587971/pexels-photo-25587971/free-photo-of-g-thien-nhien-t-i-m-u.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
+            src={user.cover || ""}
+            alt={user.cover || ""}
             fill
             className="object-cover rounded-md"
           />
           <Image
-            src="https://images.pexels.com/photos/17192407/pexels-photo-17192407/free-photo-of-tay-may-m-n-th-c-v-t-la.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
+            src={user.avatar || ""}
+            alt={user.avatar || ""}
             width={128}
             height={128}
             className="w-32 h-32 object-cover rounded-full absolute left-0 right-0 m-auto -bottom-16 ring-4 ring-white"
           />
         </div>
 
-        <h1 className="mt-20 mb-2 text-2xl font-bold">Kean</h1>
+        <UserName
+          elementType="h1"
+          className="mt-20 mb-2 text-2xl font-bold"
+          user={user}
+        />
 
         <div className="flex items-center justify-center gap-12 mb-4">
           <div className="flex flex-col items-center">
-            <span className="font-medium">{userProfileInfo.totalPost}</span>
-            <span className="text-sm">{userProfileInfo.titlePost}</span>
+            <span className="font-medium">{user._count.posts}</span>
+            <span className="text-sm">Posts</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-medium">
-              {userProfileInfo.totalFollowers}k
-            </span>
-            <span className="text-sm">{userProfileInfo.titleFollowers}</span>
+            <span className="font-medium">{user._count.followers}k</span>
+            <span className="text-sm">Followers</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-medium">
-              {userProfileInfo.totalFollowing}k
-            </span>
-            <span className="text-sm">{userProfileInfo.titleFollowing}</span>
+            <span className="font-medium">{user._count.followings}k</span>
+            <span className="text-sm">Followings</span>
           </div>
         </div>
       </div>

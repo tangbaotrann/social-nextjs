@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { auth } from "@clerk/nextjs/server";
 
 import { icons } from "../../public";
 import {
@@ -30,10 +29,6 @@ const iconOptions: ImageIconTypes[] = [
 ];
 
 function AddPost() {
-  const { userId } = auth();
-
-  console.log("userId ->", userId);
-
   return (
     <div className="bg-white p-4 flex justify-between gap-4 text-sm shadow-md rounded-lg mt-4 mb-4">
       <Image

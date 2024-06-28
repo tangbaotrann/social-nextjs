@@ -5,7 +5,10 @@ const nextConfig = {
     ppr: "incremental",
   },
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "images.pexels.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.pexels.com" },
+      { protocol: "https", hostname: "img.clerk.com" },
+    ],
   },
 };
 
