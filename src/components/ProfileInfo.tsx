@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import UserName from "./UserName";
+import { icons } from "../../public";
 import { UserProfileInfoTypes } from "@/types/User.type";
 
 type UserProfileProps = {
@@ -13,14 +14,14 @@ function ProfileInfo({ user }: UserProfileProps) {
       <div className="flex flex-col items-center justify-center">
         <div className="w-full h-64 relative">
           <Image
-            src={user.cover || ""}
-            alt={user.cover || ""}
+            src={user.cover || icons.noCover}
+            alt={user.cover || icons.noCover}
             fill
             className="object-cover rounded-md"
           />
           <Image
-            src={user.avatar || ""}
-            alt={user.avatar || ""}
+            src={user.avatar || icons.login}
+            alt={user.avatar || icons.login}
             width={128}
             height={128}
             className="w-32 h-32 object-cover rounded-full absolute left-0 right-0 m-auto -bottom-16 ring-4 ring-white"
