@@ -71,6 +71,14 @@ const titleCourse = "Courses" as string;
 const titleList = "Lists" as string;
 const titleSetting = "Settings" as string;
 
+// user info card
+const infoCardTitleLiving = "Living in" as string;
+const infoCardTitleWentTo = "Went to" as string;
+const infoCardTitleWorkAt = "Work at" as string;
+const infoCardTitleLink = "Link to:" as string;
+const infoCardTitleJoined = "Joined" as string;
+const infoCardTitleTextNoUpdate = "no updated." as string;
+
 export {
   iconHome,
   iconFriend,
@@ -142,4 +150,12 @@ export {
   titleCourse,
   titleList,
   titleSetting,
+};
+export {
+  infoCardTitleLiving,
+  infoCardTitleWentTo,
+  infoCardTitleWorkAt,
+  infoCardTitleLink,
+  infoCardTitleJoined,
+  infoCardTitleTextNoUpdate,
 };

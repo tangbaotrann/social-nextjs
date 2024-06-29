@@ -28,8 +28,6 @@ async function ProfilePage({ params }: UserInfoParamsTypes) {
     },
   });
 
-  console.log("user ->", user);
-
   if (!user) return notFound();
 
   // Check block user

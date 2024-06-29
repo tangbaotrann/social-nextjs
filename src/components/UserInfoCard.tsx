@@ -7,35 +7,43 @@ import { icons } from "../../public";
 import BoxShadow from "./BoxShadow";
 import UserName from "./UserName";
 import prisma from "@/lib/prisma";
-import { UserInfoOptionsIconTypes, UserProfileProps } from "@/types/User.type";
 import FollowsAndBlockAction from "./FollowsAndBlockAction";
+import { UserInfoOptionsIconTypes, UserProfileProps } from "@/types/User.type";
+import {
+  infoCardTitleJoined,
+  infoCardTitleLink,
+  infoCardTitleLiving,
+  infoCardTitleTextNoUpdate,
+  infoCardTitleWentTo,
+  infoCardTitleWorkAt,
+} from "@/constants";
 
 async function UserInfoCard({ user }: UserProfileProps) {
   const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
     {
       src: icons.map,
-      alt: "Living in",
-      name: user.city || "no update.",
+      alt: infoCardTitleLiving,
+      name: user.city || infoCardTitleTextNoUpdate,
     },
     {
       src: icons.school,
-      alt: "Went to",
-      name: user.school || "no update.",
+      alt: infoCardTitleWentTo,
+      name: user.school || infoCardTitleTextNoUpdate,
     },
     {
       src: icons.work,
-      alt: "Works at",
-      name: user.work || "no update.",
+      alt: infoCardTitleWorkAt,
+      name: user.work || infoCardTitleTextNoUpdate,
     },
     {
       src: icons.link,
-      alt: "",
-      link: user.website || "no update.",
+      alt: infoCardTitleLink,
+      link: user.website || infoCardTitleTextNoUpdate,
     },
     {
       src: icons.date,
-      alt: "Joined ",
-      date: user.createdAt || "no update.",
+      alt: infoCardTitleJoined,
+      date: user.createdAt || infoCardTitleTextNoUpdate,
     },
   ];
 
@@ -89,7 +97,7 @@ async function UserInfoCard({ user }: UserProfileProps) {
           <span className="text-sm">@{user.username}</span>
         </div>
 
-        <p className="">{user.description}</p>
+        <p>{user.description}</p>
 
         {iconUserInfoOptions.map((iconOption: UserInfoOptionsIconTypes) => (
           <div className="flex items-center gap-2" key={iconOption.src}>
@@ -109,7 +117,10 @@ async function UserInfoCard({ user }: UserProfileProps) {
                 <Link
                   href={iconOption.link}
                   target="_blank"
-                  className="font-medium hover:opacity-80 hover:text-blue-600 hover:duration-500"
+                  className={`font-medium hover:opacity-80 hover:text-blue-600 hover:duration-500 ${
+                    iconOption.link === infoCardTitleTextNoUpdate &&
+                    "disabled pointer-events-none"
+                  }`}
                 >
                   <i>{iconOption.link}</i>
                 </Link>
