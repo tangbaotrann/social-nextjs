@@ -1,9 +1,13 @@
 import React from "react";
 
 import { usernameFormatter } from "@/lib/utils";
-import { UsernameTypes } from "@/types/User.type";
+import { UserPublicInfoTypes } from "@/types/User.type";
 
-function UserName({ elementType, className, user }: UsernameTypes) {
+function UserName({
+  elementType,
+  className,
+  userPublic: user,
+}: UserPublicInfoTypes) {
   const CompType = elementType;
 
   return (

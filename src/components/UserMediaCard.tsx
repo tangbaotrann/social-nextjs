@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import { UserTypes } from "@/types/User.type";
 import BoxShadow from "./BoxShadow";
+import { UserProfileProps } from "@/types/User.type";
 
-function UserMediaCard({ userId }: UserTypes) {
+function UserMediaCard({ user }: UserProfileProps) {
   return (
     <BoxShadow textTitleLeft="User media" textTitleRight="See all">
       <div className="flex flex-wrap justify-between gap-4">

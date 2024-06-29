@@ -9,6 +9,17 @@ export const usernameFormatter = (surname: string, name: string): string => {
   return name + " " + surname;
 };
 
-export const followersFormatter = (followers: number) => {
-  return followers + " " + "followers";
+export const followsFormatter = (
+  followers: number,
+  textShow: string
+): string => {
+  return `${followers} ${
+    textShow === "K"
+      ? "K"
+      : textShow === "followers"
+      ? "followers"
+      : textShow === "followings"
+      ? "followings"
+      : null
+  }`;
 };

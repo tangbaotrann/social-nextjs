@@ -46,7 +46,7 @@ async function ProfilePage({ params }: UserInfoParamsTypes) {
     isBlocked = false;
   }
 
-  // if (!isBlocked) return notFound();
+  if (isBlocked) return notFound();
 
   return (
     <div className="flex gap-6">
@@ -60,7 +60,7 @@ async function ProfilePage({ params }: UserInfoParamsTypes) {
       </div>
 
       <div className="hidden lg:block w-[30%]">
-        <RightMenu userId="user1" />
+        <RightMenu user={user} />
       </div>
     </div>
   );

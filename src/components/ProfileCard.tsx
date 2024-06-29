@@ -4,8 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import BoxShadow from "./BoxShadow";
 import prisma from "@/lib/prisma";
 import { icons } from "../../public";
-import { followersFormatter, usernameFormatter } from "@/lib/utils";
 import UserName from "./UserName";
+import Follows from "./Follows";
 
 async function ProfileCard() {
   const { userId } = auth();
@@ -46,7 +46,11 @@ async function ProfileCard() {
       </div>
 
       <div className="flex flex-col items-center justify-center gap-2 py-2">
-        <UserName elementType="span" user={user} className="font-medium" />
+        <UserName
+          elementType="span"
+          userPublic={user}
+          className="font-medium"
+        />
 
         <div className="flex items-center gap-2">
           {user._count.followers === 0 ? null : (
@@ -60,10 +64,13 @@ async function ProfileCard() {
               />
             </div>
           )}
-
-          <span className="text-xs text-gray-500">
-            {followersFormatter(user._count.followers)}
-          </span>
+          <Follows
+            elementType="span"
+            followType="followers"
+            textShow="followers"
+            userPublic={user}
+            className="text-xs text-gray-500"
+          />
         </div>
 
         <button className="bg-blue-500 text-white text-xs p-2 rounded-md hover:opacity-80 hover:duration-500">

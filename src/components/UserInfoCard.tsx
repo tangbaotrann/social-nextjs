@@ -1,48 +1,95 @@
 import Link from "next/link";
 import Image from "next/image";
+import moment from "moment";
+import { auth } from "@clerk/nextjs/server";
 
 import { icons } from "../../public";
 import BoxShadow from "./BoxShadow";
-import { UserInfoOptionsIconTypes, UserTypes } from "@/types/User.type";
+import UserName from "./UserName";
+import prisma from "@/lib/prisma";
+import { UserInfoOptionsIconTypes, UserProfileProps } from "@/types/User.type";
+import FollowsAndBlockAction from "./FollowsAndBlockAction";
 
-const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
-  {
-    src: icons.map,
-    alt: "Living in",
-    name: "Denver",
-  },
-  {
-    src: icons.school,
-    alt: "Went to",
-    name: "Edgar High School",
-  },
-  {
-    src: icons.work,
-    alt: "Works at",
-    name: "Apple Inc.",
-  },
-  {
-    src: icons.link,
-    alt: "",
-    link: "https://github.com/tangbaotrann",
-  },
-  {
-    src: icons.date,
-    alt: "",
-    date: "2024-22-01",
-  },
-];
+async function UserInfoCard({ user }: UserProfileProps) {
+  const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
+    {
+      src: icons.map,
+      alt: "Living in",
+      name: user.city || "no update.",
+    },
+    {
+      src: icons.school,
+      alt: "Went to",
+      name: user.school || "no update.",
+    },
+    {
+      src: icons.work,
+      alt: "Works at",
+      name: user.work || "no update.",
+    },
+    {
+      src: icons.link,
+      alt: "",
+      link: user.website || "no update.",
+    },
+    {
+      src: icons.date,
+      alt: "Joined ",
+      date: user.createdAt || "no update.",
+    },
+  ];
 
-function UserInfoCard({ userId }: UserTypes) {
+  let isUserBlocked = false;
+  let isFollowing = false;
+  let isFollowingSent = false;
+
+  const { userId: currentUserId } = auth();
+
+  if (currentUserId) {
+    // Block
+    const resBlocked = await prisma.block.findFirst({
+      where: {
+        blockerId: currentUserId,
+        blockedId: user.id,
+      },
+    });
+
+    resBlocked ? (isUserBlocked = true) : (isUserBlocked = false);
+
+    // Follow
+    const resFollows = await prisma.follower.findFirst({
+      where: {
+        followerId: currentUserId,
+        followingId: user.id,
+      },
+    });
+
+    resFollows ? (isFollowing = true) : (isFollowing = false);
+
+    // Follow req
+    const resFollowReq = await prisma.followRequest.findFirst({
+      where: {
+        senderId: currentUserId,
+        receiverId: user.id,
+      },
+    });
+
+    resFollowReq ? (isFollowingSent = true) : (isFollowingSent = false);
+  }
+
   return (
     <BoxShadow textTitleLeft="User information" textTitleRight="See all">
       <div className="flex flex-col gap-4 text-gray-500">
         <div className="flex items-center gap-2">
-          <span className="text-xl text-black">Fleming</span>
-          <span className="text-sm">@Fleming</span>
+          <UserName
+            elementType="span"
+            userPublic={user}
+            className="text-xl text-black"
+          />
+          <span className="text-sm">@{user.username}</span>
         </div>
 
-        <p className="">Desc...</p>
+        <p className="">{user.description}</p>
 
         {iconUserInfoOptions.map((iconOption: UserInfoOptionsIconTypes) => (
           <div className="flex items-center gap-2" key={iconOption.src}>
@@ -52,9 +99,12 @@ function UserInfoCard({ userId }: UserTypes) {
               width={16}
               height={16}
             />
+
             <span className="flex items-center gap-1">
               {iconOption.alt}
+
               <b>{iconOption.name}</b>
+
               {iconOption.link && (
                 <Link
                   href={iconOption.link}
@@ -64,17 +114,19 @@ function UserInfoCard({ userId }: UserTypes) {
                   <i>{iconOption.link}</i>
                 </Link>
               )}
-              {iconOption.date && iconOption.date}
+
+              {iconOption.date && moment(iconOption.date).format("DD/MM/YYYY")}
             </span>
           </div>
         ))}
 
-        <button className="w-full bg-blue-500 text-white rounded-md p-2 hover:opacity-80 hover:duration-500">
-          Following
-        </button>
-        <span className="text-red-500 text-xs self-end cursor-pointer hover:opacity-70 hover:duration-500">
-          Block user
-        </span>
+        <FollowsAndBlockAction
+          userId={user.id}
+          currentUserId={currentUserId}
+          isUserBlocked={isUserBlocked}
+          isFollowing={isFollowing}
+          isFollowingSent={isFollowingSent}
+        />
       </div>
     </BoxShadow>
   );

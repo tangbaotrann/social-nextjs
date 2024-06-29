@@ -7,29 +7,7 @@ export type UserInfoOptionsIconTypes = {
   alt: string;
   name?: string;
   link?: string;
-  date?: string;
-};
-
-export type UsernameTypes = {
-  elementType:
-    | "p"
-    | "span"
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "div"
-    | "b"
-    | "i"
-    | "strong";
-  className?: string;
-  user: {
-    name: string | null;
-    surname: string | null;
-    username: string;
-  };
+  date?: Date;
 };
 
 export type UserInfoParamsTypes = {
@@ -52,8 +30,40 @@ export type UserProfileInfoTypes = {
   website: string | null;
   createdAt: Date;
   _count: {
-    followers: number;
-    followings: number;
-    posts: number;
+    followers?: number;
+    followings?: number;
+    posts?: number;
   };
+};
+
+export type UserPublicInfoTypes = {
+  elementType:
+    | "p"
+    | "span"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "div"
+    | "b"
+    | "i"
+    | "strong";
+  className?: string;
+  userPublic: UserProfileInfoTypes;
+  followType?: "followers" | "followings";
+  textShow?: "followers" | "followings" | "K";
+};
+
+export type UserProfileProps = {
+  user: UserProfileInfoTypes;
+};
+
+export type FollowsAndBlockTypes = {
+  userId: string;
+  currentUserId: string | null;
+  isUserBlocked: boolean;
+  isFollowing: boolean;
+  isFollowingSent: boolean;
 };
