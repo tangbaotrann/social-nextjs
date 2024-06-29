@@ -60,3 +60,11 @@ and here:
 ```typescript
     npx prisma studio
 ```
+
+# helper webhooks (create user; update user):
+
+- Links:
+
+* Docs: [go to](https://clerk.com/docs/integrations/webhooks/sync-data)
+
+* Add endpoints url here: [go to](https://dashboard.clerk.com/apps/app_2iH0pYYsJE9uoWcLmpqNp5UMvO6/instances/ins_2iH0paD4r2mNV9rp8qP9D74Mz8M/webhooks)
