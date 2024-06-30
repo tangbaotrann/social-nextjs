@@ -1,44 +1,41 @@
 import Image from "next/image";
 
 import BoxShadow from "./BoxShadow";
+import prisma from "@/lib/prisma";
+import { PostTypes } from "@/types/Post.type";
 import { UserProfileProps } from "@/types/User.type";
 
-function UserMediaCard({ user }: UserProfileProps) {
+async function UserMediaCard({ user }: UserProfileProps) {
+  const listPostWithMedia: PostTypes[] = await prisma.post.findMany({
+    where: {
+      userId: user.id,
+      img: {
+        not: null,
+      },
+    },
+    take: 8,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <BoxShadow textTitleLeft="User media" textTitleRight="See all">
       <div className="flex flex-wrap justify-between gap-4">
-        <div className="relative w-1/4 h-24">
-          <Image
-            src="https://images.pexels.com/photos/26152779/pexels-photo-26152779/free-photo-of-g-phong-c-nh-n-c-nui.png?auto=compress&cs=tinysrgb&w=400&lazy=load"
-            alt=""
-            fill
-            className="object-cover rounded-md"
-          />
-        </div>
-        <div className="relative w-1/4 h-24">
-          <Image
-            src="https://images.pexels.com/photos/26152779/pexels-photo-26152779/free-photo-of-g-phong-c-nh-n-c-nui.png?auto=compress&cs=tinysrgb&w=400&lazy=load"
-            alt=""
-            fill
-            className="object-cover rounded-md"
-          />
-        </div>
-        <div className="relative w-1/4 h-24">
-          <Image
-            src="https://images.pexels.com/photos/26152779/pexels-photo-26152779/free-photo-of-g-phong-c-nh-n-c-nui.png?auto=compress&cs=tinysrgb&w=400&lazy=load"
-            alt=""
-            fill
-            className="object-cover rounded-md"
-          />
-        </div>
-        <div className="relative w-1/4 h-24">
-          <Image
-            src="https://images.pexels.com/photos/26152779/pexels-photo-26152779/free-photo-of-g-phong-c-nh-n-c-nui.png?auto=compress&cs=tinysrgb&w=400&lazy=load"
-            alt=""
-            fill
-            className="object-cover rounded-md"
-          />
-        </div>
+        {listPostWithMedia?.length > 0 ? (
+          listPostWithMedia?.map((post: PostTypes) => (
+            <div className="relative w-1/4 h-24" key={post.id}>
+              <Image
+                src={post.img!}
+                alt="img-not-found"
+                fill
+                className="object-cover rounded-md"
+              />
+            </div>
+          ))
+        ) : (
+          <span>Not found media.</span>
+        )}
       </div>
     </BoxShadow>
   );

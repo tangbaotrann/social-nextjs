@@ -40,7 +40,7 @@ function ProfileInfo({ user }: UserProfileProps) {
             <Follows
               elementType="span"
               followType="followers"
-              textShow="K"
+              // textShow="K"
               userPublic={user}
               className="font-medium"
             />
@@ -50,7 +50,7 @@ function ProfileInfo({ user }: UserProfileProps) {
             <Follows
               elementType="span"
               followType="followings"
-              textShow="K"
+              // textShow="K"
               userPublic={user}
               className="font-medium"
             />

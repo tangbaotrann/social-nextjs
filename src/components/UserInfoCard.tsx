@@ -86,7 +86,10 @@ async function UserInfoCard({ user }: UserProfileProps) {
   }
 
   return (
-    <BoxShadow textTitleLeft="User information" textTitleRight="See all">
+    <BoxShadow
+      textTitleLeft="User information"
+      textTitleRight={currentUserId === user.id ? "Update user" : "See all"}
+    >
       <div className="flex flex-col gap-4 text-gray-500">
         <div className="flex items-center gap-2">
           <UserName
@@ -119,7 +122,7 @@ async function UserInfoCard({ user }: UserProfileProps) {
                   target="_blank"
                   className={`font-medium hover:opacity-80 hover:text-blue-600 hover:duration-500 ${
                     iconOption.link === infoCardTitleTextNoUpdate &&
-                    "disabled pointer-events-none"
+                    "disabled pointer-events-none cursor-not-allowed"
                   }`}
                 >
                   <i>{iconOption.link}</i>
@@ -131,13 +134,14 @@ async function UserInfoCard({ user }: UserProfileProps) {
           </div>
         ))}
 
-        <FollowsAndBlockAction
-          userId={user.id}
-          currentUserId={currentUserId}
-          isUserBlocked={isUserBlocked}
-          isFollowing={isFollowing}
-          isFollowingSent={isFollowingSent}
-        />
+        {currentUserId && currentUserId !== user.id && (
+          <FollowsAndBlockAction
+            userId={user.id}
+            isUserBlocked={isUserBlocked}
+            isFollowing={isFollowing}
+            isFollowingSent={isFollowingSent}
+          />
+        )}
       </div>
     </BoxShadow>
   );

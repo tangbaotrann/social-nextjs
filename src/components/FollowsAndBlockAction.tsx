@@ -4,25 +4,28 @@ import { useOptimistic, useState } from "react";
 
 import ButtonSubmitForm from "./ButtonSubmitForm";
 import { switchFollow } from "@/lib/actions/switchFollow.action";
-import { FollowsAndBlockTypes } from "@/types/User.type";
 import { switchBlock } from "@/lib/actions/switchBlock.action";
+import {
+  FollowsAndBlockTypes,
+  UserStateActionTypes,
+  UserStateTypes,
+} from "@/types/User.type";
 
 function FollowsAndBlockAction({
   userId,
-  currentUserId,
   isUserBlocked,
   isFollowing,
   isFollowingSent,
 }: FollowsAndBlockTypes) {
-  const [userState, setUserState] = useState({
+  const [userState, setUserState] = useState<UserStateTypes>({
     following: isFollowing,
     blocked: isUserBlocked,
     followingReqSent: isFollowingSent,
   });
 
   // handle Follow user
-  const handleSwitchFollow = async () => {
-    switchOptimisticState("Follow");
+  const handleSwitchFollow = async (): Promise<void> => {
+    switchOptimisticState({ actions: "Follow" }) as void;
 
     try {
       if (userId) {
@@ -41,8 +44,8 @@ function FollowsAndBlockAction({
   };
 
   // handle Block user
-  const handleSwitchBlock = async () => {
-    switchOptimisticState("Block");
+  const handleSwitchBlock = async (): Promise<void> => {
+    switchOptimisticState({ actions: "Block" }) as void;
 
     try {
       if (userId) {
@@ -58,20 +61,21 @@ function FollowsAndBlockAction({
     }
   };
 
-  const [optimisticState, switchOptimisticState] = useOptimistic(
-    userState,
-    (state, valueType: "Follow" | "Block") =>
-      valueType === "Follow"
-        ? {
-            ...state,
-            following: state.following && false,
-            followingReqSent:
-              !state.following && !state.followingReqSent ? true : false,
-          }
-        : {
-            ...state,
-            blocked: !state.blocked,
-          }
+  const [optimisticState, switchOptimisticState] = useOptimistic<
+    UserStateTypes,
+    UserStateActionTypes
+  >(userState, (state, { actions: actionType }) =>
+    actionType === "Follow"
+      ? {
+          ...state,
+          following: state.following && false,
+          followingReqSent:
+            !state.following && !state.followingReqSent ? true : false,
+        }
+      : {
+          ...state,
+          blocked: !state.blocked,
+        }
   );
 
   return (

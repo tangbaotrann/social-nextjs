@@ -1,7 +1,3 @@
-export type UserTypes = {
-  userId?: string;
-};
-
 export type UserInfoOptionsIconTypes = {
   src: string;
   alt: string;
@@ -62,8 +58,17 @@ export type UserProfileProps = {
 
 export type FollowsAndBlockTypes = {
   userId: string;
-  currentUserId: string | null;
   isUserBlocked: boolean;
   isFollowing: boolean;
   isFollowingSent: boolean;
+};
+
+export type UserStateTypes = {
+  following: boolean;
+  blocked: boolean;
+  followingReqSent: boolean;
+};
+
+export type UserStateActionTypes = {
+  actions: "Follow" | "Block";
 };

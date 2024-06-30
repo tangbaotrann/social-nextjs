@@ -11,7 +11,7 @@ export const usernameFormatter = (surname: string, name: string): string => {
 
 export const followsFormatter = (
   followers: number,
-  textShow: string
+  textShow?: string
 ): string => {
   return `${followers} ${
     textShow === "K"
@@ -20,6 +20,6 @@ export const followsFormatter = (
       ? "followers"
       : textShow === "followings"
       ? "followings"
-      : null
+      : ""
   }`;
 };
