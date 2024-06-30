@@ -4,4 +4,5 @@ export type RouteEndPointTypes = {
   groups: string;
   stories: string;
   login: string;
+  profile?: string;
 };

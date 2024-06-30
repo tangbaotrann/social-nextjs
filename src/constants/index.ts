@@ -4,12 +4,14 @@ const routeUrlFriend = "/friends" as string;
 const routeUrlGroup = "/groups" as string;
 const routeUrlStory = "/stories" as string;
 const routeUrlNoAvatar = "/login" as string;
+const routeUrlProfile = "/profile" as string;
 // --
 const routeNameHome = "Home" as string;
 const routeNameFriend = "Friends" as string;
 const routeNameGroup = "Groups" as string;
 const routeNameStory = "Stories" as string;
 const routeNameNoAvatar = "Login" as string;
+const routeNameProfile = "My Profile" as string;
 
 // icons
 const iconHome = "/home.png" as string;
@@ -124,11 +126,13 @@ export {
   routeUrlGroup,
   routeUrlStory,
   routeUrlNoAvatar,
+  routeUrlProfile,
   routeNameHome,
   routeNameFriend,
   routeNameGroup,
   routeNameStory,
   routeNameNoAvatar,
+  routeNameProfile,
 };
 export {
   postOptionAddEvent,

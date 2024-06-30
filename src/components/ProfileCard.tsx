@@ -1,11 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 
 import BoxShadow from "./BoxShadow";
 import prisma from "@/lib/prisma";
-import { icons } from "../../public";
 import UserName from "./UserName";
 import Follows from "./Follows";
+import { icons } from "../../public";
+import { routesUrlEndpoint } from "@/routes";
+import { routeNameProfile } from "@/constants";
 
 async function ProfileCard() {
   const { userId } = auth();
@@ -64,6 +67,7 @@ async function ProfileCard() {
               />
             </div>
           )}
+
           <Follows
             elementType="span"
             followType="followers"
@@ -73,9 +77,12 @@ async function ProfileCard() {
           />
         </div>
 
-        <button className="bg-blue-500 text-white text-xs p-2 rounded-md hover:opacity-80 hover:duration-500">
-          My Profile
-        </button>
+        <Link
+          href={`${routesUrlEndpoint.profile}/${user.username}`}
+          className="bg-blue-500 text-white text-xs p-2 rounded-md hover:opacity-80 hover:duration-500"
+        >
+          {routeNameProfile}
+        </Link>
       </div>
     </BoxShadow>
   );

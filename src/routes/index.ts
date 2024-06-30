@@ -11,6 +11,7 @@ import {
   routeUrlGroup,
   routeUrlHome,
   routeUrlNoAvatar,
+  routeUrlProfile,
   routeUrlStory,
 } from "@/constants";
 
@@ -20,6 +21,7 @@ export const routesUrlEndpoint: RouteEndPointTypes = {
   groups: routeUrlGroup,
   stories: routeUrlStory,
   login: routeUrlNoAvatar,
+  profile: routeUrlProfile,
 } as const;
 
 const routesNameEndpoint: RouteEndPointTypes = {
