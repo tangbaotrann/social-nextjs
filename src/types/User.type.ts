@@ -25,7 +25,7 @@ export type UserProfileInfoTypes = {
   work: string | null;
   website: string | null;
   createdAt: Date;
-  _count: {
+  _count?: {
     followers?: number;
     followings?: number;
     posts?: number;
@@ -53,7 +53,7 @@ export type UserPublicInfoTypes = {
 };
 
 export type UserProfileProps = {
-  user: UserProfileInfoTypes;
+  user?: UserProfileInfoTypes;
 };
 
 export type FollowsAndBlockTypes = {
