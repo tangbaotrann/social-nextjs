@@ -84,7 +84,7 @@ function FriendRequestListAction({ requests }: FriendRequestTypesProps) {
                   <button>
                     <Image
                       src={icons.accept}
-                      alt=""
+                      alt={icons.accept}
                       width={20}
                       height={20}
                       className="cursor-pointer hover:opacity-70 hover:duration-500"
@@ -98,7 +98,7 @@ function FriendRequestListAction({ requests }: FriendRequestTypesProps) {
                   <button>
                     <Image
                       src={icons.reject}
-                      alt=""
+                      alt={icons.reject}
                       width={20}
                       height={20}
                       className="cursor-pointer hover:opacity-70 hover:duration-500"

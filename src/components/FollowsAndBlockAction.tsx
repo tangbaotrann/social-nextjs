@@ -81,7 +81,7 @@ function FollowsAndBlockAction({
   return (
     <>
       <form action={handleSwitchFollow}>
-        <ButtonSubmitForm className="w-full bg-blue-500 text-white rounded-md p-2 hover:opacity-80 hover:duration-500">
+        <ButtonSubmitForm>
           {optimisticState.following
             ? "Following"
             : optimisticState.followingReqSent
@@ -91,10 +91,8 @@ function FollowsAndBlockAction({
       </form>
 
       <form action={handleSwitchBlock} className="self-end">
-        <ButtonSubmitForm>
-          <span className="text-red-500 text-xs self-end cursor-pointer hover:opacity-70 hover:duration-500">
-            {optimisticState.blocked ? "Unblock User" : "Block user"}
-          </span>
+        <ButtonSubmitForm className="bg-red-500">
+          {optimisticState.blocked ? "Unblock User" : "Block user"}
         </ButtonSubmitForm>
       </form>
     </>

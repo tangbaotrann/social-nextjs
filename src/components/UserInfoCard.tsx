@@ -17,6 +17,7 @@ import {
   infoCardTitleWentTo,
   infoCardTitleWorkAt,
 } from "@/constants";
+import UpdateInfoUserAction from "./UpdateInfoUserAction";
 
 async function UserInfoCard({ user }: UserProfileProps) {
   const iconUserInfoOptions: UserInfoOptionsIconTypes[] = [
@@ -88,7 +89,10 @@ async function UserInfoCard({ user }: UserProfileProps) {
   return (
     <BoxShadow
       textTitleLeft="User information"
-      textTitleRight={currentUserId === user.id ? "Update user" : "See all"}
+      textTitleRight={currentUserId === user.id ? "" : "See all"}
+      iconTitleRight={
+        currentUserId === user.id && <UpdateInfoUserAction user={user} />
+      }
     >
       <div className="flex flex-col gap-4 text-gray-500">
         <div className="flex items-center gap-2">

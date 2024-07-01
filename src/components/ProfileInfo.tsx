@@ -33,7 +33,7 @@ function ProfileInfo({ user }: UserProfileProps) {
 
         <div className="flex items-center justify-center gap-12 mb-4">
           <div className="flex flex-col items-center">
-            <span className="font-medium">{user._count.posts}</span>
+            <span className="font-medium">{user._count?.posts}</span>
             <span className="text-sm">Posts</span>
           </div>
           <div className="flex flex-col items-center">

@@ -5,6 +5,7 @@ export type IconsTypes = {
   stories: string;
   login: string;
   noCover: string;
+  cover: string;
   people: string;
   message: string;
   notification: string;
