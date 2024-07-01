@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { CldUploadWidget } from "next-cloudinary";
 
 import { icons } from "../../public";
 import ButtonSubmitForm from "./ButtonSubmitForm";
@@ -11,14 +12,18 @@ import { updateProfile } from "@/lib/actions/updateProfile.action";
 
 function UpdateInfoUserAction({ user }: UserProfileProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [cover, setCover] = useState<any>();
 
   const handleModal = () => {
     setOpenModal(!openModal);
   };
 
-  const handleUpdateProfile = async (formData: FormData): Promise<void> => {
+  const handleUpdateProfile = async (
+    formData: FormData,
+    coverSecureUrl: string
+  ): Promise<void> => {
     try {
-      await updateProfile(formData);
+      await updateProfile(formData, coverSecureUrl);
 
       handleModal();
     } catch (err) {
@@ -38,7 +43,9 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
       {openModal && (
         <Modal>
           <form
-            action={handleUpdateProfile}
+            action={(formData: FormData) =>
+              handleUpdateProfile(formData, cover?.secure_url)
+            }
             className="relative p-8 bg-white rounded-lg flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3"
           >
             <h1>Update profile</h1>
@@ -48,17 +55,30 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
 
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="">Cover picture: </label>
-              <div className="flex items-center gap-2 cursor-pointer">
-                <Image
-                  // icons.cover ||
-                  src={icons.noCover}
-                  alt={icons.noCover}
-                  width={48}
-                  height={32}
-                  className="w-12 h-8 rounded-md object-cover"
-                />
-                <span className="text-xs underline text-gray-600">Change</span>
-              </div>
+              <CldUploadWidget
+                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                onSuccess={(result) => setCover(result.info)}
+              >
+                {({ open }) => {
+                  return (
+                    <div
+                      className="flex items-center gap-2 cursor-pointer"
+                      onClick={() => open()}
+                    >
+                      <Image
+                        src={user.cover || icons.noCover}
+                        alt={user.cover || icons.noCover}
+                        width={48}
+                        height={32}
+                        className="w-12 h-8 rounded-md object-cover"
+                      />
+                      <span className="text-xs underline text-gray-600">
+                        Change
+                      </span>
+                    </div>
+                  );
+                }}
+              </CldUploadWidget>
 
               <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
                 <div className="flex flex-col gap-2 w-full">
@@ -130,8 +150,8 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
                   <label htmlFor="work">Work: </label>
                   <input
                     type="text"
-                    id="Work"
-                    name="Work"
+                    id="work"
+                    name="work"
                     placeholder={user.work || "Work..."}
                     className="w-full outline-none border-none rounded-md p-1 text-xs focus:ring-2"
                   />
@@ -143,8 +163,8 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
                   <label htmlFor="Website">Website: </label>
                   <input
                     type="text"
-                    id="Website"
-                    name="Website"
+                    id="website"
+                    name="website"
                     placeholder={user.website || "Website..."}
                     className="w-full outline-none border-none rounded-md p-1 text-xs focus:ring-2"
                   />

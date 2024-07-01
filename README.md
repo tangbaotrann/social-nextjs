@@ -68,3 +68,11 @@ and here:
 * Docs: [go to](https://clerk.com/docs/integrations/webhooks/sync-data)
 
 * Add endpoints url here: [go to](https://dashboard.clerk.com/apps/app_2iH0pYYsJE9uoWcLmpqNp5UMvO6/instances/ins_2iH0paD4r2mNV9rp8qP9D74Mz8M/webhooks)
+
+# helper cloudinary:
+
+- Links:
+
+* Docs: [go to](https://console.cloudinary.com/settings)
+
+* Guide next cloudinary dev: [go to](https://next.cloudinary.dev/clduploadwidget/basic-usage)
