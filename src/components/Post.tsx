@@ -6,9 +6,11 @@ import {
   postOptionLike,
   postOptionShare,
 } from "@/constants";
+import UserName from "./UserName";
 import CommentInput from "./CommentInput";
-import { ImageIconTypes } from "@/types/ImageIcon.type";
 import IconInteractive from "./IconInteractive";
+import { PostTypesProps } from "@/types/Post.type";
+import { ImageIconTypes } from "@/types/ImageIcon.type";
 
 const iconOptionsInteraction: ImageIconTypes[] = [
   {
@@ -21,20 +23,24 @@ const iconOptionsInteraction: ImageIconTypes[] = [
   },
 ];
 
-function Post() {
+function Post({ post }: PostTypesProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Top post */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Image
-            src="https://images.pexels.com/photos/19915666/pexels-photo-19915666/free-photo-of-back-view-of-man-walking-on-sea-shore.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
+            src={post.user.avatar || icons.login}
+            alt={post.user.avatar || icons.login}
             className="w-10 h-10 rounded-full"
             width={40}
             height={40}
           />
-          <span className="font-medium">Lie</span>
+          <UserName
+            elementType="span"
+            userPublic={post.user}
+            className="font-medium"
+          />
         </div>
 
         <IconInteractive
@@ -47,15 +53,16 @@ function Post() {
 
       {/* Content post */}
       <div className="flex flex-col gap-4">
+        <span>{post.desc}</span>
+
         <div className="w-full min-h-96 relative">
           <Image
-            src="https://images.pexels.com/photos/23355108/pexels-photo-23355108/free-photo-of-a-bakery-with-bread-on-display-in-front-of-a-window.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
+            src={post.img || ""}
+            alt={post.img || ""}
             fill
             className="object-cover rounded-md"
           />
         </div>
-        <span>Description ...</span>
       </div>
 
       {/* Interactive post */}

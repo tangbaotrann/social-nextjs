@@ -1,8 +1,11 @@
-export type PostTypes = {
-  id: number;
-  desc: string;
-  img: string | null;
-  userId: string;
-  createdAt: Date;
-  updatedAt: Date;
+import { Post, User } from "@prisma/client";
+
+export type PostTypes = Post & { user: User } & {
+  likes: { userId: string }[];
+} & {
+  _count: { comments: number };
+};
+
+export type PostTypesProps = {
+  post: PostTypes;
 };

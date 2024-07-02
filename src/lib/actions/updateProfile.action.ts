@@ -3,7 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 
 import prisma from "../prisma";
-import { objProfile } from "../validate";
+import { objProfile } from "../validation";
 import { ActionResultTypes } from "@/types/ActionResult.type";
 
 export const updateProfile = async (

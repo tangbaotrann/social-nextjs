@@ -54,7 +54,7 @@ async function ProfilePage({ params }: UserInfoParamsTypes) {
 
       <div className="w-full lg:w-[70%] xl:w-[50%]">
         <ProfileInfo user={user} />
-        <Feed />
+        <Feed username={user.username} />
       </div>
 
       <div className="hidden lg:block w-[30%]">

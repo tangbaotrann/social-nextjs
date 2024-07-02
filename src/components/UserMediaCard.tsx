@@ -2,11 +2,11 @@ import Image from "next/image";
 
 import BoxShadow from "./BoxShadow";
 import prisma from "@/lib/prisma";
-import { PostTypes } from "@/types/Post.type";
+import { Post } from "@prisma/client";
 import { UserProfileProps } from "@/types/User.type";
 
 async function UserMediaCard({ user }: UserProfileProps) {
-  const listPostWithMedia: PostTypes[] = await prisma.post.findMany({
+  const listPostWithMedia: Post[] = await prisma.post.findMany({
     where: {
       userId: user.id,
       img: {
@@ -23,7 +23,7 @@ async function UserMediaCard({ user }: UserProfileProps) {
     <BoxShadow textTitleLeft="User media" textTitleRight="See all">
       <div className="flex flex-wrap justify-between gap-4">
         {listPostWithMedia?.length > 0 ? (
-          listPostWithMedia?.map((post: PostTypes) => (
+          listPostWithMedia?.map((post: Post) => (
             <div className="relative w-1/4 h-24" key={post.id}>
               <Image
                 src={post.img!}
