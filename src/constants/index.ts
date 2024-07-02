@@ -32,6 +32,7 @@ const iconAddEvent = "/addevent.png" as string;
 const iconPoll = "/poll.png" as string;
 const iconMore = "/more.png" as string;
 const iconLike = "/like.png" as string;
+const iconLiked = "/liked.png" as string;
 const iconComment = "/comment.png" as string;
 const iconShare = "/share.png" as string;
 const iconAccept = "/accept.png" as string;
@@ -59,6 +60,7 @@ const postOptionAddVideo = "Video" as string;
 const postOptionAddEvent = "Event" as string;
 const postOptionPoll = "Poll" as string;
 const postOptionLike = "Likes" as string;
+const postOptionLiked = "Liked" as string;
 const postOptionComment = "Comments" as string;
 const postOptionShare = "Share" as string;
 
@@ -101,6 +103,7 @@ export {
   iconPoll,
   iconMore,
   iconLike,
+  iconLiked,
   iconComment,
   iconShare,
   iconAccept,
@@ -142,6 +145,7 @@ export {
   postOptionAddVideo,
   postOptionPoll,
   postOptionLike,
+  postOptionLiked,
   postOptionComment,
   postOptionShare,
 };

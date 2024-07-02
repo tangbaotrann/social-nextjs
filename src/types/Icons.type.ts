@@ -17,6 +17,7 @@ export type IconsTypes = {
   poll: string;
   more: string;
   like: string;
+  liked: string;
   comment: string;
   share: string;
   accept: string;

@@ -9,3 +9,18 @@ export type PostTypes = Post & { user: User } & {
 export type PostTypesProps = {
   post: PostTypes;
 };
+
+export type PostInteractiveTypesProps = {
+  postId: number;
+  likes: string[];
+  commentNumber: number;
+};
+
+export type LikePostTypes = {
+  likeCount: number;
+  isLiked: boolean;
+};
+
+export type SwitchLikePostActionTypes = {
+  actions: "SwitchLike";
+};
