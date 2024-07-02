@@ -4,14 +4,17 @@ import { auth } from "@clerk/nextjs/server";
 
 import prisma from "../prisma";
 import { objProfile } from "../validate";
+import { ActionResultTypes } from "@/types/ActionResult.type";
 
 export const updateProfile = async (
-  formData: FormData,
-  coverSecureUrl: string
-): Promise<void> => {
+  prevState: ActionResultTypes,
+  payload: { formData: FormData; coverSecureUrl: string }
+): Promise<ActionResultTypes> => {
   const { userId: currentUserId } = auth();
 
   if (!currentUserId) throw new Error("No auth!");
+
+  const { formData, coverSecureUrl } = payload;
 
   const valueFields = Object.fromEntries<FormDataEntryValue>(formData);
 
@@ -28,7 +31,7 @@ export const updateProfile = async (
 
   if (!validateProfile.success) {
     console.log(validateProfile.error.flatten().fieldErrors);
-    return;
+    return { success: false, error: true };
   }
 
   try {
@@ -38,8 +41,10 @@ export const updateProfile = async (
       },
       data: validateProfile.data,
     });
+
+    return { success: true, error: false };
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to update profile!");
+    return { success: false, error: true };
   }
 };

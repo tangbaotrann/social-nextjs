@@ -1,8 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { CldUploadWidget } from "next-cloudinary";
+import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
+import {
+  CldUploadWidget,
+  CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 
 import { icons } from "../../public";
 import ButtonSubmitForm from "./ButtonSubmitForm";
@@ -14,21 +18,21 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [cover, setCover] = useState<any>();
 
+  const [state, formAction] = useActionState(updateProfile, {
+    success: false,
+    error: false,
+  });
+
+  const router = useRouter();
+
   const handleModal = () => {
     setOpenModal(!openModal);
+
+    state.success && router.refresh();
   };
 
-  const handleUpdateProfile = async (
-    formData: FormData,
-    coverSecureUrl: string
-  ): Promise<void> => {
-    try {
-      await updateProfile(formData, coverSecureUrl);
-
-      handleModal();
-    } catch (err) {
-      console.log(err);
-    }
+  const handleUpdateProfile = (formData: FormData, coverSecureUrl: string) => {
+    formAction({ formData, coverSecureUrl });
   };
 
   return (
@@ -57,7 +61,9 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
               <label htmlFor="">Cover picture: </label>
               <CldUploadWidget
                 uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                onSuccess={(result) => setCover(result.info)}
+                onSuccess={(result: CloudinaryUploadWidgetResults) =>
+                  setCover(result.info)
+                }
               >
                 {({ open }) => {
                   return (
@@ -172,6 +178,18 @@ function UpdateInfoUserAction({ user }: UserProfileProps) {
               </div>
 
               <ButtonSubmitForm>Update</ButtonSubmitForm>
+
+              {/* show status form action */}
+              {state.success && (
+                <span className="text-green-500 text-center">
+                  Profile has been updated.
+                </span>
+              )}
+              {state.error && (
+                <span className="text-red-500 text-center">
+                  Something went wrong!
+                </span>
+              )}
             </div>
 
             {/* icon close modal */}
