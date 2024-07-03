@@ -3,8 +3,9 @@
 import { auth } from "@clerk/nextjs/server";
 
 import prisma from "../prisma";
+import { sleepSession } from "../utils";
 
-export const switchLike = async (postId: number) => {
+export const switchLike = async (postId: number): Promise<void> => {
   const { userId: currentUserId } = auth();
 
   if (!currentUserId) throw new Error("No auth. Please login!");
@@ -16,6 +17,8 @@ export const switchLike = async (postId: number) => {
         userId: currentUserId,
       },
     });
+
+    // await sleepSession("SwitchLike", 2000);
 
     if (existingLike) {
       await prisma.like.delete({

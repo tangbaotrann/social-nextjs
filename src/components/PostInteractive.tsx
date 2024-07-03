@@ -43,11 +43,11 @@ function PostInteractive({
   });
 
   // Like
-  const handleSwitchLike = async (): Promise<void> => {
+  const handleSwitchLike = () => {
     switchOptimisticLike({ actions: "SwitchLike" }) as void;
 
     try {
-      await switchLike(postId);
+      switchLike(postId);
 
       setLikeState((prevState) => ({
         likeCount: prevState.isLiked
@@ -90,24 +90,22 @@ function PostInteractive({
           </form>
 
           {/* Comment */}
-          <form
-            action={handleComments}
+          <div
             className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl"
+            onClick={handleComments}
           >
-            <button>
-              <IconInteractive
-                src={icons.comment}
-                alt={icons.comment}
-                width={16}
-                height={16}
-              />
-            </button>
+            <IconInteractive
+              src={icons.comment}
+              alt={icons.comment}
+              width={16}
+              height={16}
+            />
             <span className="text-gray-300">|</span>
             <span className="text-gray-500">
               {commentNumber}
               <span className="hidden md:inline ml-1">{postOptionComment}</span>
             </span>
-          </form>
+          </div>
         </div>
 
         {/* Share */}

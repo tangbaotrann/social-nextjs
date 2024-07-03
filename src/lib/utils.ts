@@ -23,3 +23,16 @@ export const followsFormatter = (
       : ""
   }`;
 };
+
+export const sleepSession = async (
+  action: string,
+  sleepTime: number
+): Promise<void> => {
+  await new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      console.log(`Action ${action} - time: ${sleepTime}`);
+
+      resolve();
+    }, sleepTime);
+  });
+};
