@@ -1,76 +1,128 @@
+"use client";
+
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
+import { ChangeEvent, useOptimistic, useState } from "react";
 
 import { icons } from "../../public";
 import IconInteractive from "./IconInteractive";
+import ButtonSubmitForm from "./ButtonSubmitForm";
+import Comment from "./Comment";
+import { CommentTypes, CommentTypesProps } from "@/types/Comment.type";
+import { addComment } from "@/lib/actions/addComment.action";
 
-function CommentInput() {
+function CommentInput({ comments, postId }: CommentTypesProps) {
+  const { user } = useUser();
+
+  const [commentState, setCommentState] = useState<CommentTypes[]>(comments);
+  const [description, setDescription] = useState<string>("");
+
+  const handleOnChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setDescription(value);
+  };
+
+  // handle add new comment
+  const handleAddNewComment = async () => {
+    if (!user || !description) return;
+
+    addOptimisticComment({
+      id: Math.random(),
+      desc: description,
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      userId: user?.id,
+      postId: postId,
+      user: {
+        id: user.id,
+        avatar: user.imageUrl || icons.login,
+        name: user.lastName,
+        surname: user.firstName,
+        city: "",
+        work: "",
+        school: "",
+        website: "",
+        username: "Sending please wait...",
+        cover: "",
+        description: "",
+        createdAt: new Date(Date.now()),
+      },
+    }) as void;
+
+    try {
+      const newComment = await addComment(postId, description);
+
+      setCommentState((prevState) => [newComment, ...prevState]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [optimisticComment, addOptimisticComment] = useOptimistic<
+    CommentTypes[],
+    CommentTypes
+  >(commentState, (state, newComment) => {
+    return [newComment, ...state];
+  });
+
   return (
-    <div className="">
-      <div className="flex items-center gap-4">
-        <Image
-          src="https://images.pexels.com/photos/7525672/pexels-photo-7525672.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
-          alt=""
-          width={32}
-          height={32}
-          className="w-8 h-8 object-cover rounded-full"
-        />
+    <>
+      <div className="flex items-center gap-4 w-full">
+        {user && (
+          <>
+            <Image
+              src={user.imageUrl}
+              alt={user.imageUrl}
+              width={32}
+              height={32}
+              className="w-8 h-8 object-cover rounded-full"
+            />
 
-        {/* Comment input */}
-        <div className="flex flex-1 items-center justify-between w-full">
-          <input
-            type="text"
-            placeholder="Write a comment..."
-            className="flex-1 bg-transparent outline-none p-2 rounded-md text-sm font-medium mr-1 focus:ring-2 focus:duration-500"
-          />
-          <IconInteractive
-            src={icons.emoji}
-            alt={icons.emoji}
-            width={16}
-            height={16}
-          />
-        </div>
-      </div>
-
-      {/* Load comments */}
-      <div className="flex gap-4 mt-6">
-        <Image
-          src="https://images.pexels.com/photos/7525672/pexels-photo-7525672.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
-          alt=""
-          width={40}
-          height={40}
-          className="w-10 h-10 object-cover rounded-full"
-        />
-
-        <div className="flex flex-1 flex-col gap-2">
-          <span className="font-medium">Join</span>
-          <p>Comment of people other here.</p>
-
-          {/* Interactive comment */}
-          <div className="flex items-center gap-8 text-xs text-gray-500 mt-2">
-            <div className="flex items-center gap-4">
+            {/* Comment input */}
+            <form
+              action={handleAddNewComment}
+              className="flex items-center gap-2 w-full"
+            >
+              <input
+                type="text"
+                name="desc"
+                id="desc"
+                onChange={(e) => handleOnChangeComment(e)}
+                placeholder="Write a comment..."
+                className="flex-1 bg-transparent outline-none p-2 rounded-md text-sm font-medium focus:ring-2 focus:duration-500"
+              />
               <IconInteractive
-                src={icons.like}
-                alt={icons.like}
+                src={icons.emoji}
+                alt={icons.emoji}
                 width={16}
                 height={16}
               />
-              <span className="text-gray-300">|</span>
-              <span className="text-gray-500">123 Likes</span>
-            </div>
 
-            <div className="">Reply</div>
-          </div>
-        </div>
-
-        {/* <IconMore /> */}
-        <IconInteractive
-          src={icons.more}
-          alt={icons.more}
-          width={16}
-          height={16}
-        />
+              <div>
+                <ButtonSubmitForm
+                  className={`${
+                    !description &&
+                    "disabled cursor-not-allowed pointer-events-none bg-gray-400"
+                  }`}
+                >
+                  Send
+                </ButtonSubmitForm>
+              </div>
+            </form>
+          </>
+        )}
       </div>
-    </div>
+
+      {/* Load comments */}
+      <div className="flex flex-col gap-4 mt-6 w-full">
+        {optimisticComment.map((comment: CommentTypes) => (
+          <div className="flex gap-4" key={comment.id}>
+            <Comment comment={comment} />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 

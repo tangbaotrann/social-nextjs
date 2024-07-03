@@ -5,6 +5,7 @@ import UserName from "./UserName";
 import IconInteractive from "./IconInteractive";
 import { PostTypesProps } from "@/types/Post.type";
 import PostInteractive from "./PostInteractive";
+import CommentPost from "./CommentPost";
 
 function Post({ post }: PostTypesProps) {
   return (
@@ -54,6 +55,9 @@ function Post({ post }: PostTypesProps) {
         likes={post.likes.map((like) => like.userId)}
         commentNumber={post._count.comments}
       />
+
+      {/* Comment post */}
+      <CommentPost postId={post.id} />
     </div>
   );
 }
