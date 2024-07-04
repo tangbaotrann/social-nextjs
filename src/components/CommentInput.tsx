@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { ChangeEvent, useOptimistic, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { icons } from "../../public";
 import IconInteractive from "./IconInteractive";
@@ -10,12 +11,17 @@ import ButtonSubmitForm from "./ButtonSubmitForm";
 import Comment from "./Comment";
 import { CommentTypes, CommentTypesProps } from "@/types/Comment.type";
 import { addComment } from "@/lib/actions/addComment.action";
+import { commentLoadLimit } from "@/constants";
 
 function CommentInput({ comments, postId }: CommentTypesProps) {
   const { user } = useUser();
 
   const [commentState, setCommentState] = useState<CommentTypes[]>(comments);
   const [description, setDescription] = useState<string>("");
+
+  const [visibleCountComments, setVisibleCountComments] =
+    useState<number>(commentLoadLimit);
+  const [commentLoading, setCommentLoading] = useState<boolean>(false);
 
   const handleOnChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -28,7 +34,7 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
     if (!user || !description) return;
 
     addOptimisticComment({
-      id: Math.random(),
+      id: +uuidv4(),
       desc: description,
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),
@@ -37,34 +43,53 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
       user: {
         id: user.id,
         avatar: user.imageUrl || icons.login,
-        name: user.lastName,
-        surname: user.firstName,
+        name: "",
+        surname: "",
         city: "",
         work: "",
         school: "",
         website: "",
-        username: "Sending please wait...",
+        username: "loading...",
         cover: "",
         description: "",
         createdAt: new Date(Date.now()),
       },
+      pending: true,
     }) as void;
 
     try {
       const newComment = await addComment(postId, description);
 
       setCommentState((prevState) => [newComment, ...prevState]);
+      setVisibleCountComments((prevCount) => prevCount + 1);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  // load comments
+  const loadMoreComments = async () => {
+    setCommentLoading(true);
+
+    const url: string = `/api/comments?postId=${postId}&skip=${visibleCountComments}&take=${commentLoadLimit}`;
+    const response = await fetch(url);
+
+    if (response.ok) {
+      const moreComments = await response.json();
+
+      setCommentState((prevState) => [...prevState, ...moreComments]);
+      setVisibleCountComments((prevCount) => prevCount + commentLoadLimit);
+      setCommentLoading(false);
+    } else {
+      console.log("Comment end.");
+      setCommentLoading(false);
     }
   };
 
   const [optimisticComment, addOptimisticComment] = useOptimistic<
     CommentTypes[],
     CommentTypes
-  >(commentState, (state, newComment) => {
-    return [newComment, ...state];
-  });
+  >(commentState, (state, newComment) => [newComment, ...state]);
 
   return (
     <>
@@ -116,11 +141,39 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
 
       {/* Load comments */}
       <div className="flex flex-col gap-4 mt-6 w-full">
-        {optimisticComment.map((comment: CommentTypes) => (
-          <div className="flex gap-4" key={comment.id}>
-            <Comment comment={comment} />
-          </div>
-        ))}
+        {optimisticComment.length > 0 ? (
+          <>
+            {optimisticComment
+              .slice(0, visibleCountComments)
+              .map((comment: CommentTypes) => (
+                <div
+                  className={`flex gap-4 p-1 rounded-lg ${
+                    comment.pending && "p-1 rounded-lg fade-out"
+                  }`}
+                  key={comment.id}
+                >
+                  <Comment comment={comment} />
+                </div>
+              ))}
+
+            <div className="flex justify-start">
+              {commentLoading ? (
+                <button className="text-sm font-medium">
+                  Waiting loading...
+                </button>
+              ) : (
+                <button
+                  onClick={loadMoreComments}
+                  className="text-sm font-medium hover:opacity-70 hover:text-blue-600 hover:duration-500"
+                >
+                  See more
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
+          <span>No comment.</span>
+        )}
       </div>
     </>
   );

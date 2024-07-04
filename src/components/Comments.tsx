@@ -12,7 +12,10 @@ async function Comments({ postId }: { postId: number }) {
     orderBy: {
       createdAt: "desc",
     },
+    take: 3,
   });
+
+  console.log("load comments ->", comments);
 
   return <CommentInput comments={comments} postId={postId} />;
 }

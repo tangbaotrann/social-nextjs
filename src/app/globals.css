@@ -12,3 +12,23 @@
 .scrollbar-hide {
   scrollbar-width: none;
 }
+
+/* 
+* Custom animation show and hide when add new comment
+*/
+@keyframes fadeOut {
+  0% {
+    background-color: #bfdbfe; /* bg-blue-200 */
+    animation-duration: 3s;
+    transition: all 3s linear;
+  }
+  100% {
+    background-color: #ffffff; /* bg-white */
+    animation-duration: 0s;
+    transition: all 0s linear;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 3.5s forwards;
+}

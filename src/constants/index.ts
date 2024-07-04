@@ -84,6 +84,9 @@ const infoCardTitleLink = "Link to:" as string;
 const infoCardTitleJoined = "Joined" as string;
 const infoCardTitleTextNoUpdate = "no updated." as string;
 
+// comments
+const commentLoadLimit = 3 as number;
+
 export {
   iconHome,
   iconFriend,
@@ -169,3 +172,4 @@ export {
   infoCardTitleJoined,
   infoCardTitleTextNoUpdate,
 };
+export { commentLoadLimit };

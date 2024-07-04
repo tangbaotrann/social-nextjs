@@ -6,6 +6,7 @@ import { icons } from "../../public";
 import IconInteractive from "./IconInteractive";
 import { CommentTypes } from "@/types/Comment.type";
 import UserName from "./UserName";
+import moment from "moment";
 
 function Comment({ comment }: { comment: CommentTypes }) {
   return (
@@ -41,6 +42,12 @@ function Comment({ comment }: { comment: CommentTypes }) {
           </div>
 
           <div className="">Reply</div>
+
+          <div className="flex justify-end">
+            <span>
+              {moment(comment.createdAt).format("DD/MM/YYYY HH:mm:ss a")}
+            </span>
+          </div>
         </div>
       </div>
 
