@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
-import { ChangeEvent, useOptimistic, useState } from "react";
+import { ChangeEvent, useEffect, useOptimistic, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { icons } from "../../public";
@@ -12,6 +12,7 @@ import Comment from "./Comment";
 import { CommentTypes, CommentTypesProps } from "@/types/Comment.type";
 import { addComment } from "@/lib/actions/addComment.action";
 import { commentLoadLimit } from "@/constants";
+import { listenEvent } from "@/helpers/events";
 
 function CommentInput({ comments, postId }: CommentTypesProps) {
   const { user } = useUser();
@@ -22,6 +23,8 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
   const [visibleCountComments, setVisibleCountComments] =
     useState<number>(commentLoadLimit);
   const [commentLoading, setCommentLoading] = useState<boolean>(false);
+
+  const [toggleComment, setToggleComment] = useState<boolean>(true);
 
   const handleOnChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -91,6 +94,17 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
     CommentTypes
   >(commentState, (state, newComment) => [newComment, ...state]);
 
+  useEffect(() => {
+    const remove = listenEvent(
+      "custom:toggle-comment",
+      ({ detail: payload }: any) => {
+        setToggleComment(payload);
+      }
+    );
+
+    return remove;
+  }, []);
+
   return (
     <>
       <div className="flex items-center gap-4 w-full">
@@ -140,41 +154,43 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
       </div>
 
       {/* Load comments */}
-      <div className="flex flex-col gap-4 mt-6 w-full">
-        {optimisticComment.length > 0 ? (
-          <>
-            {optimisticComment
-              .slice(0, visibleCountComments)
-              .map((comment: CommentTypes) => (
-                <div
-                  className={`flex gap-4 p-1 rounded-lg ${
-                    comment.pending && "p-1 rounded-lg fade-out"
-                  }`}
-                  key={comment.id}
-                >
-                  <Comment comment={comment} />
-                </div>
-              ))}
+      {toggleComment ? (
+        <div className="flex flex-col gap-4 mt-6 w-full">
+          {optimisticComment.length > 0 ? (
+            <>
+              {optimisticComment
+                .slice(0, visibleCountComments)
+                .map((comment: CommentTypes) => (
+                  <div
+                    className={`flex gap-4 p-1 rounded-lg ${
+                      comment.pending && "p-1 rounded-lg fade-out"
+                    }`}
+                    key={comment.id}
+                  >
+                    <Comment comment={comment} />
+                  </div>
+                ))}
 
-            <div className="flex justify-start">
-              {commentLoading ? (
-                <button className="text-sm font-medium">
-                  Waiting loading...
-                </button>
-              ) : (
-                <button
-                  onClick={loadMoreComments}
-                  className="text-sm font-medium hover:opacity-70 hover:text-blue-600 hover:duration-500"
-                >
-                  See more
-                </button>
-              )}
-            </div>
-          </>
-        ) : (
-          <span>No comment.</span>
-        )}
-      </div>
+              <div className="flex justify-start">
+                {commentLoading ? (
+                  <button className="text-sm font-medium">
+                    Waiting loading...
+                  </button>
+                ) : (
+                  <button
+                    onClick={loadMoreComments}
+                    className="text-sm font-medium hover:opacity-70 hover:text-blue-600 hover:duration-500"
+                  >
+                    See more
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <span>No comment.</span>
+          )}
+        </div>
+      ) : null}
     </>
   );
 }

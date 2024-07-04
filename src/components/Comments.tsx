@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import CommentInput from "./CommentInput";
+import { commentLoadLimit } from "@/constants";
 
 async function Comments({ postId }: { postId: number }) {
   const comments = await prisma.comment.findMany({
@@ -12,10 +13,8 @@ async function Comments({ postId }: { postId: number }) {
     orderBy: {
       createdAt: "desc",
     },
-    take: 3,
+    take: commentLoadLimit as number,
   });
-
-  console.log("load comments ->", comments);
 
   return <CommentInput comments={comments} postId={postId} />;
 }

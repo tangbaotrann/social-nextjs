@@ -17,6 +17,7 @@ import {
   SwitchLikePostActionTypes,
 } from "@/types/Post.type";
 import { switchLike } from "@/lib/actions/switchLike.action";
+import { sendEvent } from "@/helpers/events";
 
 function PostInteractive({
   postId,
@@ -24,6 +25,8 @@ function PostInteractive({
   commentNumber,
 }: PostInteractiveTypesProps) {
   const { userId: currentUserId, isLoaded } = useAuth();
+
+  const [toggleComment, setToggleComment] = useState<boolean>(false);
 
   const [likeState, setLikeState] = useState<LikePostTypes>({
     likeCount: likes.length,
@@ -54,6 +57,12 @@ function PostInteractive({
     }));
   };
 
+  const handleToggleComment = () => {
+    setToggleComment(!toggleComment);
+
+    sendEvent("custom:toggle-comment", toggleComment);
+  };
+
   return (
     <div className="flex items-center justify-between text-sm">
       <div className="flex gap-8 max-sm:gap-2 md:gap-4">
@@ -78,7 +87,10 @@ function PostInteractive({
         </form>
 
         {/* Comment */}
-        <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
+        <div
+          className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl hover:opacity-70 hover:cursor-pointer hover:duration-500"
+          onClick={handleToggleComment}
+        >
           <IconInteractive
             src={icons.comment}
             alt={icons.comment}
