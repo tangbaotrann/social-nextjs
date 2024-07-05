@@ -1,69 +1,43 @@
 import Image from "next/image";
+import { auth } from "@clerk/nextjs/server";
 
-function Stories() {
+import prisma from "@/lib/prisma";
+import StoriesList from "./StoriesList";
+
+async function Stories() {
+  const { userId: currentUserId } = auth();
+
+  if (!currentUserId) return null;
+
+  const stories = await prisma.story.findMany({
+    where: {
+      expiresAt: {
+        gt: new Date(),
+      },
+      OR: [
+        {
+          user: {
+            followers: {
+              some: {
+                followerId: currentUserId,
+              },
+            },
+          },
+        },
+        {
+          userId: currentUserId,
+        },
+      ],
+    },
+    include: {
+      user: true,
+    },
+  });
+
   return (
     <div className="bg-white rounded-lg p-4 shadow-md overflow-scroll text-xs scrollbar-hide">
-      <div className="flex gap-8">
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
-        <div className="flex flex-col items-center gap-2 cursor-pointer w-max">
-          <Image
-            src="https://images.pexels.com/photos/15301144/pexels-photo-15301144/free-photo-of-foamy-waves-on-the-shore-and-skyscrapers-of-a-coastal-city-in-distance.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            className="rounded-lg ring-2"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Kean</span>
-        </div>
+      <div className="flex items-center gap-8">
+        <StoriesList stories={stories} userId={currentUserId} />
       </div>
     </div>
   );
