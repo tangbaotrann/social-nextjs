@@ -1,12 +1,12 @@
 "use client";
 
+import moment from "moment";
 import Image from "next/image";
 
 import { icons } from "../../public";
 import IconInteractive from "./IconInteractive";
 import { CommentTypes } from "@/types/Comment.type";
 import UserName from "./UserName";
-import moment from "moment";
 
 function Comment({ comment }: { comment: CommentTypes }) {
   return (

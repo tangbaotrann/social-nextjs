@@ -48,10 +48,12 @@ async function Feed({ username }: { username?: string }) {
 
     const followingIds = followings.map((following) => following.followingId);
 
+    const ids = [currentUserId, ...followingIds];
+
     posts = await prisma.post.findMany({
       where: {
         userId: {
-          in: followingIds,
+          in: ids,
         },
       },
       include: {

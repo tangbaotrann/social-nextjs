@@ -12,5 +12,10 @@ export const objProfile = z.object({
   website: z.string().max(60).optional(),
 });
 
+// Post
+export const objPost = z.object({
+  desc: z.string().min(1).max(255),
+});
+
 // export const validateProfile = s.safeParse(fi)
 // export type validateProfile = z.infer<typeof objProfile>

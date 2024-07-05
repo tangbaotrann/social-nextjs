@@ -115,8 +115,7 @@ function PostInteractive({
         />
         <span className="text-gray-300">|</span>
         <span className="text-gray-500">
-          102
-          <span className="hidden md:inline ml-1">{postOptionShare}</span>
+          0 <span className="hidden md:inline ml-1">{postOptionShare}</span>
         </span>
       </div>
     </div>

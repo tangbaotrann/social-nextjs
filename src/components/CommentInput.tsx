@@ -23,6 +23,9 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
   const [visibleCountComments, setVisibleCountComments] =
     useState<number>(commentLoadLimit);
   const [commentLoading, setCommentLoading] = useState<boolean>(false);
+  const [checkLoadMoreComments, setCheckLoadMoreComments] = useState<number>(
+    commentState.length
+  );
 
   const [toggleComment, setToggleComment] = useState<boolean>(true);
 
@@ -71,17 +74,18 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
   };
 
   // load comments
-  const loadMoreComments = async () => {
+  const handleLoadMoreComments = async () => {
     setCommentLoading(true);
 
     const url: string = `/api/comments?postId=${postId}&skip=${visibleCountComments}&take=${commentLoadLimit}`;
-    const response = await fetch(url);
+    const resCommentLoadMore = await fetch(url);
 
-    if (response.ok) {
-      const moreComments = await response.json();
+    if (resCommentLoadMore.ok) {
+      const moreComments = await resCommentLoadMore.json();
 
       setCommentState((prevState) => [...prevState, ...moreComments]);
       setVisibleCountComments((prevCount) => prevCount + commentLoadLimit);
+      setCheckLoadMoreComments(moreComments.length);
       setCommentLoading(false);
     } else {
       console.log("Comment end.");
@@ -162,29 +166,37 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
                 .slice(0, visibleCountComments)
                 .map((comment: CommentTypes) => (
                   <div
-                    className={`flex gap-4 p-1 rounded-lg ${
-                      comment.pending && "p-1 rounded-lg fade-out"
-                    }`}
+                    className={`flex gap-4 p-1 rounded-lg fade-out`}
                     key={comment.id}
                   >
                     <Comment comment={comment} />
                   </div>
                 ))}
 
-              <div className="flex justify-start">
-                {commentLoading ? (
-                  <button className="text-sm font-medium">
-                    Waiting loading...
-                  </button>
-                ) : (
-                  <button
-                    onClick={loadMoreComments}
-                    className="text-sm font-medium hover:opacity-70 hover:text-blue-600 hover:duration-500"
-                  >
-                    See more
-                  </button>
-                )}
-              </div>
+              {optimisticComment.length >= commentLoadLimit && (
+                <div className="flex justify-start">
+                  {commentLoading ? (
+                    <button className="text-sm font-medium">
+                      Waiting loading...
+                    </button>
+                  ) : (
+                    <button
+                      onClick={
+                        checkLoadMoreComments > 0
+                          ? handleLoadMoreComments
+                          : () => {}
+                      }
+                      className="text-sm font-medium hover:opacity-70 hover:text-blue-600 hover:duration-500"
+                    >
+                      {checkLoadMoreComments !== 0 ? (
+                        "See more"
+                      ) : (
+                        <i>-- End --</i>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
             </>
           ) : (
             <span>No comment.</span>

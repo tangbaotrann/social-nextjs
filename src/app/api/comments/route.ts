@@ -10,6 +10,8 @@ export async function GET(req: Request): Promise<NextResponse<unknown>> {
     const skip = Number(searchParams.get("skip")) as number;
     const take = Number(searchParams.get("take")) as number;
 
+    console.log("skip ->", skip);
+
     if (!postId)
       return NextResponse.json(
         { error: "Post id not found!" },

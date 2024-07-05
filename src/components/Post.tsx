@@ -1,3 +1,4 @@
+import moment from "moment";
 import Image from "next/image";
 
 import { icons } from "../../public";
@@ -20,11 +21,18 @@ function Post({ post }: PostTypesProps) {
             width={40}
             height={40}
           />
-          <UserName
-            elementType="span"
-            userPublic={post.user}
-            className="font-medium"
-          />
+
+          <div className="flex flex-col gap-1">
+            <UserName
+              elementType="span"
+              userPublic={post.user}
+              className="font-medium"
+            />
+
+            <span className="text-xs text-gray-400">
+              {moment(post.createdAt).format("HH:mm:ss a")}
+            </span>
+          </div>
         </div>
 
         <IconInteractive
