@@ -1,14 +1,19 @@
 import moment from "moment";
 import Image from "next/image";
+import { auth } from "@clerk/nextjs/server";
 
 import { icons } from "../../public";
 import UserName from "./UserName";
-import IconInteractive from "./IconInteractive";
 import { PostTypesProps } from "@/types/Post.type";
 import PostInteractive from "./PostInteractive";
 import CommentPost from "./CommentPost";
+import PostInfoMore from "./PostInfoMore";
 
 function Post({ post }: PostTypesProps) {
+  const { userId: currentUserId } = auth();
+
+  if (!currentUserId) return null;
+
   return (
     <div className="flex flex-col gap-4">
       {/* Top post */}
@@ -35,12 +40,7 @@ function Post({ post }: PostTypesProps) {
           </div>
         </div>
 
-        <IconInteractive
-          src={icons.more}
-          alt={icons.more}
-          width={16}
-          height={16}
-        />
+        <PostInfoMore post={post} userId={currentUserId} />
       </div>
 
       {/* Content post */}

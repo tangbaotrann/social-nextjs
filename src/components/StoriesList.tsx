@@ -106,13 +106,13 @@ function StoriesList({ stories, userId }: StoriesTypesProps) {
         }}
       </CldUploadWidget>
 
-      {optimisticStories.map((_story) => (
+      {optimisticStories.map((story) => (
         <div
-          key={_story.id}
+          key={story.id}
           className="flex flex-col items-center gap-2 cursor-pointer w-max"
         >
           <Image
-            src={_story.img}
+            src={story.img}
             alt=""
             className="rounded-lg ring-2"
             width={80}
@@ -120,7 +120,7 @@ function StoriesList({ stories, userId }: StoriesTypesProps) {
           />
           <UserName
             elementType="span"
-            userPublic={_story.user}
+            userPublic={story.user}
             className="font-medium"
           />
         </div>
