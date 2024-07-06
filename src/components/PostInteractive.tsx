@@ -24,7 +24,7 @@ function PostInteractive({
   likes,
   commentNumber,
 }: PostInteractiveTypesProps) {
-  const { userId: currentUserId, isLoaded } = useAuth();
+  const { userId: currentUserId } = useAuth();
 
   const [toggleComment, setToggleComment] = useState<boolean>(false);
 

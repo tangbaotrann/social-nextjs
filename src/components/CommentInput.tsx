@@ -68,6 +68,7 @@ function CommentInput({ comments, postId }: CommentTypesProps) {
 
       setCommentState((prevState) => [newComment, ...prevState]);
       setVisibleCountComments((prevCount) => prevCount + 1);
+      setDescription("");
     } catch (err) {
       console.error(err);
     }
