@@ -52,6 +52,12 @@ and here:
   ```typescript
       npx prisma migrate dev --name init
   ```
+  
+  - Refresh models prisma client:
+    
+  ```typescript
+     npx prisma genergate
+  ```
 
 ## Bonus prisma open browser web:
 
